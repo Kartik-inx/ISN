@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 const navLinks = [
@@ -33,9 +34,19 @@ export default function Navbar() {
     <>
       <nav className="fixed top-0 left-0 right-0 z-50 bg-[#0a0f1e] py-5 transition-colors duration-300">
         <div className="max-w-screen-2xl mx-auto px-6 lg:px-8 flex items-center justify-between">
-          {/* LEFT SIDE: No logo (remove logo/brand mark if present) */}
-          {/* Empty spacer block to keep the center links perfectly centered */}
-          <div className="w-48 xl:block hidden" />
+          {/* LEFT SIDE: Brand Logo (visible on both mobile and desktop) */}
+          <div className="flex items-center justify-start xl:w-48">
+            <Link href="/" className="flex-shrink-0 transition-transform hover:scale-105 duration-300">
+              <Image
+                src="/images/ISN-Logo.svg"
+                alt="It Stops Now Logo"
+                width={160}
+                height={36}
+                priority
+                className="h-9 w-auto"
+              />
+            </Link>
+          </div>
 
           {/* CENTRE NAVIGATION LINKS (in this exact order) */}
           <div className="hidden xl:flex items-center justify-center flex-1 gap-10">
