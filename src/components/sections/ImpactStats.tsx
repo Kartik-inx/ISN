@@ -1,127 +1,115 @@
 "use client";
 
-import { useAnimatedCounter } from "@/hooks/useAnimatedCounter";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 
 const stats = [
   {
-    value: 14000,
-    suffix: "+",
-    label: "Officers Affected Annually",
-    description: "Across forces nationwide",
     icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-        <path d="M12 2L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z" />
-      </svg>
-    ),
-  },
-  {
-    value: 350,
-    suffix: "+",
-    label: "Stories Shared",
-    description: "Voices finally being heard",
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-        <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
-      </svg>
-    ),
-  },
-  {
-    value: 50000,
-    suffix: "+",
-    label: "Supporters Nationwide",
-    description: "And growing every day",
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
         <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
         <circle cx="9" cy="7" r="4" />
         <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" />
       </svg>
     ),
+    value: "100+",
+    label: "POLICE OFFICERS & STAFF LOST TO SUICIDE",
   },
   {
-    value: 30,
-    suffix: "+",
-    label: "Years Combined Service",
-    description: "Of our founding team",
     icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-        <circle cx="12" cy="12" r="10" />
-        <polyline points="12 6 12 12 16 14" />
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <path d="M12 4v16m-8-8h16" />
+        <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
       </svg>
     ),
+    value: "70+",
+    label: "POLICE OFFICERS LOST TO SUICIDE",
+  },
+  {
+    icon: (
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" />
+      </svg>
+    ),
+    value: "200+",
+    label: "ATTEMPTED SUICIDES RECORDED",
+  },
+  {
+    icon: (
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <circle cx="12" cy="12" r="10" />
+        <line x1="12" y1="8" x2="12" y2="12" />
+        <line x1="12" y1="16" x2="12.01" y2="16" />
+      </svg>
+    ),
+    value: "47 OF 70",
+    label: "OFFICER SUICIDES LINKED TO MISCONDUCT OR CRIMINAL INVESTIGATIONS",
+  },
+  {
+    icon: (
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <path d="M12 3v18M1 12h22M4.2 6.8L12 3l7.8 3.8M4.2 17.2L12 21l7.8-3.8" />
+      </svg>
+    ),
+    value: "173 OF 236",
+    label: "ATTEMPTED SUICIDES INVOLVED OFFICERS UNDER INVESTIGATION",
+  },
+  {
+    icon: (
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+        <circle cx="12" cy="7" r="4" />
+      </svg>
+    ),
+    value: "12 OF 13",
+    label: "KNOWN OFFICER SUICIDES IN 2025 INVOLVED OFFICERS UNDER INVESTIGATION",
   },
 ];
 
-function StatCard({
-  value,
-  suffix,
-  label,
-  description,
-  icon,
-  delay,
-}: {
-  value: number;
-  suffix: string;
-  label: string;
-  description: string;
-  icon: React.ReactNode;
-  delay: number;
-}) {
-  const { count, ref } = useAnimatedCounter({ end: value, duration: 2500, delay: delay * 150 });
-
-  return (
-    <div
-      ref={ref as React.RefObject<HTMLDivElement>}
-      className="group relative p-8 rounded-2xl glass card-lift gradient-border"
-    >
-      <div className="relative z-10">
-        <div className="text-azure mb-5 transition-transform duration-500 group-hover:scale-110">
-          {icon}
-        </div>
-        <div className="flex items-baseline gap-1 mb-2">
-          <span className="text-4xl sm:text-5xl font-display font-bold text-pure-white tabular-nums">
-            {count.toLocaleString()}
-          </span>
-          <span className="text-2xl font-display font-bold text-azure">{suffix}</span>
-        </div>
-        <h3 className="text-base font-semibold text-silver mb-1">{label}</h3>
-        <p className="text-sm text-slate">{description}</p>
-      </div>
-
-      {/* Hover glow */}
-      <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-azure/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-    </div>
-  );
-}
-
 export default function ImpactStats() {
   return (
-    <section className="relative py-28 overflow-hidden">
-      {/* Background accent */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-azure/3 rounded-full blur-[120px]" />
-
-      <div className="relative max-w-7xl mx-auto px-6">
+    <section className="relative py-28 bg-obsidian border-y border-white/5">
+      <div className="max-w-5xl mx-auto px-6">
         <ScrollReveal>
-          <div className="text-center mb-16">
-            <span className="inline-flex items-center gap-2 text-sm font-semibold tracking-[0.2em] uppercase text-azure mb-4">
-              <span className="w-8 h-px bg-azure" />
-              The Scale of Impact
-              <span className="w-8 h-px bg-azure" />
-            </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold gradient-text-white">
-              Numbers That Demand Action
+          <div className="mb-10 text-center">
+            <h2 className="text-2xl sm:text-3xl font-display font-bold text-pure-white uppercase tracking-wide">
+              THE REALITY WE CAN&apos;T IGNORE
             </h2>
+            <div className="w-16 h-1 bg-azure mx-auto mt-4" />
           </div>
         </ScrollReveal>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           {stats.map((stat, i) => (
-            <ScrollReveal key={stat.label} delay={i * 0.1}>
-              <StatCard {...stat} delay={i} />
+            <ScrollReveal key={i} delay={i * 0.1}>
+              <div className="h-full p-8 rounded-2xl border border-white/10 bg-navy/50 flex flex-col items-center text-center shadow-lg hover:border-azure/30 transition-colors">
+                <div className="text-azure mb-6">{stat.icon}</div>
+                <div className="text-3xl sm:text-4xl font-display font-bold text-pure-white mb-3">
+                  {stat.value}
+                </div>
+                <h3 className="text-xs font-semibold text-slate-light uppercase tracking-widest leading-relaxed">
+                  {stat.label}
+                </h3>
+              </div>
             </ScrollReveal>
           ))}
         </div>
+
+        <ScrollReveal delay={0.6}>
+          <div className="bg-navy/30 rounded-xl p-6 border border-white/5 flex flex-col sm:flex-row items-start gap-4">
+            <div className="w-6 h-6 rounded-full border border-slate-500 flex items-center justify-center text-slate-400 flex-shrink-0 mt-0.5 font-serif italic">
+              i
+            </div>
+            <div>
+              <p className="text-sm font-semibold text-pure-white mb-1">The true number is likely to be significantly higher.</p>
+              <p className="text-sm text-slate-light leading-relaxed mb-3">
+                Inconsistent reporting and the absence of national transparency mean the full scale of the issue may never be fully known.
+              </p>
+              <p className="text-[11px] text-slate-500 uppercase tracking-wider">
+                Data source: Police Federation wellbeing and misconduct research (2022-2025)
+              </p>
+            </div>
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   );

@@ -5,6 +5,7 @@ import IssuePreview from "@/components/sections/IssuePreview";
 import StoriesPreview from "@/components/sections/StoriesPreview";
 import VoicesPreview from "@/components/sections/VoicesPreview";
 import EventsPreview from "@/components/sections/EventsPreview";
+import PocketSergeantBanner from "@/components/sections/PocketSergeantBanner";
 import CTABanner from "@/components/sections/CTABanner";
 
 export default function HomePage() {
@@ -17,6 +18,7 @@ export default function HomePage() {
       <StoriesPreview />
       <VoicesPreview />
       <EventsPreview />
+      <PocketSergeantBanner />
       <CTABanner />
     </>
   );

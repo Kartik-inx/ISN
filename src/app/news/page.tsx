@@ -1,147 +1,204 @@
-import { Metadata } from "next";
+"use client";
+
+import { useState } from "react";
 import ScrollReveal from "@/components/animations/ScrollReveal";
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
 
-export const metadata: Metadata = {
-  title: "News",
-  description: "Latest news, updates, and press coverage from the It Stops Now campaign.",
-};
+const categories = [
+  "All News", "Campaign News", "Parliament", "Expert Voices", 
+  "Research", "Media", "Events", "Opinion", "Community"
+];
 
-const articles = [
+const newsArticles = [
   {
-    date: "5 June 2026",
-    category: "Campaign",
-    title: "Parliamentary Committee to Hear Evidence on Officer Welfare",
-    excerpt: "In a landmark development, the Home Affairs Select Committee has agreed to hear evidence from serving officers and campaign groups about the state of police welfare provision.",
-    featured: true,
+    category: "Campaign News",
+    title: "National Police Memorial Day: Remembering Those We've Lost",
+    excerpt: "As we gather for National Police Memorial Day, we remember not only those lost in the line of duty, but those lost to the invisible wounds of the job.",
+    date: "Sep 28, 2025",
+    author: "It Stops Now Team",
+    image: "/images/hero_home.png",
   },
   {
-    date: "28 May 2026",
-    category: "Press",
-    title: "National Media Coverage Puts Spotlight on Officer Suicide Rates",
-    excerpt: "Major broadcast and print outlets covered the latest data showing an alarming trend in officer suicide rates, citing It Stops Now research.",
+    category: "Parliament",
+    title: "New Bill Proposed: Time Limits on IOPC Investigations",
+    excerpt: "A cross-party coalition of MPs has tabled a new bill calling for strict 12-month time limits on disciplinary investigations, addressing the severe mental health toll of prolonged uncertainty.",
+    date: "Sep 15, 2025",
+    author: "Political Correspondent",
+    image: "/images/hero_theissue.png",
   },
   {
-    date: "15 May 2026",
-    category: "Update",
-    title: "Wall of Remembrance Reaches 5,000 Candles Lit",
-    excerpt: "The digital memorial has seen an extraordinary response, with thousands of people lighting candles and sharing memories of lost officers.",
+    category: "Research",
+    title: "Mind Blue Light Survey Reveals Shocking Toll on Frontline",
+    excerpt: "The latest independent survey data shows a 15% year-on-year increase in officers reporting clinical symptoms of PTSD. The system is fundamentally broken.",
+    date: "Sep 02, 2025",
+    author: "Dr. Sarah Jenkins",
+    image: "/images/hero_stories.png",
   },
   {
-    date: "3 May 2026",
-    category: "Campaign",
-    title: "New Partnership with Mind Blue Light Programme",
-    excerpt: "We are proud to announce a formal partnership to extend specialist mental health support to officers and their families.",
+    category: "Media",
+    title: "BBC Panorama: The Silent Crisis in Policing",
+    excerpt: "A groundbreaking new documentary airs tonight, featuring interviews with our founders and several anonymous serving officers discussing the reality of mental health in the force.",
+    date: "Aug 22, 2025",
+    author: "Media Team",
+    image: "/images/hero_home.png",
   },
   {
-    date: "20 April 2026",
-    category: "Press",
-    title: "Chief Constable Responds to Open Letter",
-    excerpt: "Following our open letter to police leadership, a serving Chief Constable has publicly acknowledged the need for systemic reform in welfare provision.",
+    category: "Expert Voices",
+    title: "Why 'Resilience Training' Isn't Enough",
+    excerpt: "We cannot yoga our way out of trauma. A leading trauma specialist explains why systemic change, not just individual resilience training, is required.",
+    date: "Aug 10, 2025",
+    author: "Prof. David Clark",
+    image: "/images/hero_theissue.png",
   },
   {
-    date: "8 April 2026",
-    category: "Update",
-    title: "Community March Draws Record Attendance",
-    excerpt: "Over 3,000 people joined solidarity marches across 12 cities, making it the largest demonstration of support for police officer welfare in UK history.",
+    category: "Community",
+    title: "Local Force Implements Peer-Support Pilot",
+    excerpt: "Following pressure from our campaign, a northern constabulary has launched an entirely anonymous peer-to-peer support network.",
+    date: "Jul 28, 2025",
+    author: "Community Liaison",
+    image: "/images/hero_stories.png",
   },
 ];
 
-const categoryColors: Record<string, string> = {
-  Campaign: "bg-azure/10 text-azure",
-  Press: "bg-gold/10 text-gold",
-  Update: "bg-emerald/10 text-emerald",
-};
-
 export default function NewsPage() {
-  const featured = articles[0];
-  const rest = articles.slice(1);
+  const [activeTab, setActiveTab] = useState("All News");
+
+  const filteredNews = activeTab === "All News" 
+    ? newsArticles 
+    : newsArticles.filter(n => n.category === activeTab);
 
   return (
     <>
-      {/* Hero */}
-      <section className="relative pt-40 pb-20 overflow-hidden">
+      <section className="relative pt-40 pb-20 overflow-hidden bg-obsidian">
         <div className="absolute inset-0 z-0">
-          <Image
-            src="/images/hero_news.png"
-            alt="Campaign News - Close up of microphones and reporters"
-            fill
-            priority
-            className="object-cover object-center opacity-30"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-navy/70 via-midnight/90 to-midnight" />
-          <div className="absolute inset-0 bg-gradient-to-r from-midnight via-midnight/50 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-b from-navy/40 via-obsidian to-obsidian" />
         </div>
-        <div className="relative max-w-5xl mx-auto px-6 text-center">
+        <div className="relative max-w-7xl mx-auto px-6 text-center">
           <ScrollReveal>
-            <span className="inline-flex items-center gap-2 text-sm font-semibold tracking-[0.2em] uppercase text-azure mb-6">
+            <span className="inline-flex items-center gap-2 text-sm font-semibold tracking-[0.2em] uppercase text-azure mb-4">
               <span className="w-8 h-px bg-azure" />
-              News & Updates
+              Latest Updates
               <span className="w-8 h-px bg-azure" />
             </span>
-            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-display font-extrabold gradient-text-white leading-none tracking-tight drop-shadow-xl mb-6">
-              Latest from the Campaign
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-display font-extrabold text-pure-white mb-6 uppercase">
+              LATEST UPDATES & CAMPAIGN NEWS
             </h1>
+            <p className="text-lg text-slate-light max-w-2xl mx-auto">
+              Stay informed on our progress, upcoming events, and breakthroughs in our fight for the policing family.
+            </p>
           </ScrollReveal>
         </div>
       </section>
 
-      {/* Featured Article */}
-      <section className="relative py-8">
+      <section className="py-12 bg-obsidian">
+        <div className="max-w-7xl mx-auto px-6">
+          {/* Category Filters */}
+          <div className="flex flex-wrap items-center justify-center gap-2 mb-16">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setActiveTab(cat)}
+                className={`px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 border ${
+                  activeTab === cat
+                    ? "bg-azure text-obsidian border-azure shadow-md shadow-azure/20"
+                    : "bg-white/5 text-slate-light border-white/10 hover:border-white/30 hover:text-pure-white"
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+
+          {/* News Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filteredNews.map((article, i) => (
+              <ScrollReveal key={i} delay={i * 0.1}>
+                <Link href="#" className="group block h-full">
+                  <div className="bg-navy border border-white/5 rounded-2xl overflow-hidden h-full flex flex-col transition-all duration-300 hover:border-azure/30 hover:shadow-xl hover:shadow-azure/5">
+                    <div className="relative h-48 w-full overflow-hidden bg-midnight">
+                      <Image
+                        src={article.image}
+                        alt={article.title}
+                        fill
+                        className="object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100"
+                      />
+                      <div className="absolute top-4 left-4">
+                        <span className="px-3 py-1 bg-azure text-obsidian text-[11px] font-bold uppercase tracking-wider rounded-full shadow-sm">
+                          {article.category}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="p-6 flex-1 flex flex-col">
+                      <h3 className="text-xl font-display font-bold text-pure-white mb-3 group-hover:text-azure transition-colors">
+                        {article.title}
+                      </h3>
+                      <p className="text-sm text-slate-light leading-relaxed mb-6 flex-1">
+                        {article.excerpt}
+                      </p>
+                      <div className="flex items-center justify-between text-xs font-semibold text-slate-500 uppercase tracking-wider border-t border-white/10 pt-4 mt-auto">
+                        <span>{article.date}</span>
+                        <span>{article.author}</span>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              </ScrollReveal>
+            ))}
+          </div>
+          
+          {filteredNews.length === 0 && (
+            <div className="text-center py-20">
+              <p className="text-slate-500">No news found in this category.</p>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* What We're Working On Section */}
+      <section className="py-24 bg-midnight border-t border-white/5">
         <div className="max-w-7xl mx-auto px-6">
           <ScrollReveal>
-            <div className="group relative p-8 md:p-12 rounded-3xl bg-gradient-to-br from-navy-light to-navy border border-white/5 card-lift">
-              <div className="flex items-center gap-3 mb-6">
-                <span className={`text-xs font-semibold px-3 py-1 rounded-full ${categoryColors[featured.category]}`}>
-                  {featured.category}
-                </span>
-                <span className="text-sm text-slate">{featured.date}</span>
-              </div>
-              <h2 className="text-2xl md:text-4xl font-display font-bold text-pure-white mb-4 group-hover:text-azure transition-colors">
-                {featured.title}
+            <div className="text-center mb-16">
+              <h2 className="text-3xl sm:text-4xl font-display font-bold text-pure-white uppercase tracking-wide mb-4">
+                WHAT WE&apos;RE WORKING ON
               </h2>
-              <p className="text-base text-slate-light max-w-3xl leading-relaxed mb-6">
-                {featured.excerpt}
-              </p>
-              <span className="inline-flex items-center gap-2 text-azure font-semibold text-sm group-hover:gap-3 transition-all">
-                Read Full Article
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
-              </span>
+              <p className="text-slate-light">Our Current Focus Areas</p>
+              <div className="w-16 h-1 bg-azure mx-auto mt-6" />
             </div>
           </ScrollReveal>
-        </div>
-      </section>
 
-      {/* News Grid */}
-      <section className="relative py-16 pb-28">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {rest.map((article, i) => (
-              <ScrollReveal key={i} delay={i * 0.08}>
-                <article className="group relative h-full flex flex-col p-7 rounded-2xl bg-navy/40 border border-white/5 card-lift">
-                  <div className="flex items-center gap-3 mb-5">
-                    <span className={`text-xs font-semibold px-3 py-1 rounded-full ${categoryColors[article.category]}`}>
-                      {article.category}
-                    </span>
-                    <span className="text-xs text-slate">{article.date}</span>
-                  </div>
-                  <h3 className="text-lg font-display font-semibold text-pure-white mb-3 group-hover:text-azure transition-colors leading-snug">
-                    {article.title}
-                  </h3>
-                  <p className="text-sm text-slate-light leading-relaxed flex-1 mb-5">
-                    {article.excerpt}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              {
+                title: "Investigations Reform",
+                desc: "Advocating for strict time limits on IOPC investigations to prevent the severe psychological damage of prolonged uncertainty.",
+                icon: "⚖️"
+              },
+              {
+                title: "Mental Health Support",
+                desc: "Campaigning for mandatory, independent psychological assessments and fast-track trauma treatment for all frontline staff.",
+                icon: "🧠"
+              },
+              {
+                title: "Data Transparency",
+                desc: "Pushing for a national, public register of police suicides to force accountability and reveal the true scale of the crisis.",
+                icon: "📊"
+              },
+              {
+                title: "Culture Change",
+                desc: "Working with force leadership to eliminate the stigma around mental health and end the toxic culture of silence.",
+                icon: "🤝"
+              }
+            ].map((focus, i) => (
+              <ScrollReveal key={i} delay={i * 0.1}>
+                <div className="bg-navy/50 border border-white/5 rounded-2xl p-8 h-full hover:bg-navy transition-colors hover:border-azure/20">
+                  <div className="text-4xl mb-6">{focus.icon}</div>
+                  <h3 className="text-lg font-bold text-pure-white mb-4 uppercase">{focus.title}</h3>
+                  <p className="text-sm text-slate-light leading-relaxed">
+                    {focus.desc}
                   </p>
-                  <span className="inline-flex items-center gap-2 text-azure text-sm font-medium group-hover:gap-3 transition-all">
-                    Read More
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M5 12h14M12 5l7 7-7 7" />
-                    </svg>
-                  </span>
-                  <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-azure/40 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left rounded-b-2xl" />
-                </article>
+                </div>
               </ScrollReveal>
             ))}
           </div>

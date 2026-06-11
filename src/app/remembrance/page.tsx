@@ -1,25 +1,32 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 import { calculateColorization } from "@/lib/utils";
 import Image from "next/image";
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
+import CondolenceBookPDF, { OfficerMemorial } from "@/components/pdf/CondolenceBookPDF";
 
-const memorials = [
-  { id: 1, initials: "DS", name: "PC David Smith", rank: "Constable", force: "Metropolitan Police", years: "1998 – 2019", tribute: "A devoted officer and loving father. Always the first to help.", image: "/images/uk_police_ds_1781074862198.png" },
-  { id: 2, initials: "JW", name: "Sgt. Jane Williams", rank: "Sergeant", force: "West Yorkshire", years: "2001 – 2022", tribute: "Her dedication to her community was unwavering. Forever in our hearts.", image: "/images/uk_police_jw_1781074874420.png" },
-  { id: 3, initials: "RM", name: "Insp. Robert Mitchell", rank: "Inspector", force: "Thames Valley", years: "1995 – 2018", tribute: "A leader who always put his officers first. His wisdom is deeply missed.", image: "/images/uk_police_rm_1781074886666.png" },
-  { id: 4, initials: "SK", name: "PC Sarah Khan", rank: "Constable", force: "GMP", years: "2005 – 2023", tribute: "Her courage and compassion inspired everyone she served alongside.", image: "/images/uk_police_sk_1781074899035.png" },
-  { id: 5, initials: "TH", name: "DC Thomas Harris", rank: "Detective", force: "Merseyside", years: "2000 – 2021", tribute: "An exceptional detective whose pursuit of justice never wavered.", image: "/images/uk_police_th_1781074911702.png" },
-  { id: 6, initials: "AL", name: "PC Amy Lewis", rank: "Constable", force: "Sussex", years: "2008 – 2020", tribute: "She believed in making her corner of the world a safer place.", image: "/images/uk_police_sk_1781074899035.png" },
-  { id: 7, initials: "PB", name: "Sgt. Paul Brooks", rank: "Sergeant", force: "Kent", years: "1997 – 2017", tribute: "Twenty years of dedicated service. A true pillar of his team.", image: "/images/uk_police_ds_1781074862198.png" },
-  { id: 8, initials: "EC", name: "DC Emma Carter", rank: "Detective", force: "Avon & Somerset", years: "2003 – 2024", tribute: "Her empathy for victims and tireless work ethic defined her service.", image: "/images/uk_police_jw_1781074874420.png" },
+const memorials: OfficerMemorial[] = [
+  { id: 1, initials: "DS", name: "PC David Smith", rank: "Constable", force: "Metropolitan Police", years: "1998 – 2019", image: "/images/uk_police_ds_1781074862198.png", simulatedGlobalCount: 8250 },
+  { id: 2, initials: "JW", name: "Sgt. Jane Williams", rank: "Sergeant", force: "West Yorkshire Police", years: "2001 – 2022", image: "/images/uk_police_jw_1781074874420.png", simulatedGlobalCount: 3120 },
+  { id: 3, initials: "RM", name: "Insp. Robert Mitchell", rank: "Inspector", force: "Thames Valley Police", years: "1995 – 2018", image: "/images/uk_police_rm_1781074886666.png", simulatedGlobalCount: 940 },
+  { id: 4, initials: "SK", name: "PC Sarah Khan", rank: "Constable", force: "Greater Manchester Police", years: "2005 – 2023", image: "/images/uk_police_sk_1781074899035.png", simulatedGlobalCount: 145 },
+  { id: 5, initials: "TH", name: "DC Thomas Harris", rank: "Detective Constable", force: "Merseyside Police", years: "2000 – 2021", image: "/images/uk_police_th_1781074911702.png", simulatedGlobalCount: 45 },
+  { id: 6, initials: "AL", name: "PC Amy Lewis", rank: "Constable", force: "Sussex Police", years: "2008 – 2020", image: "/images/uk_police_sk_1781074899035.png", simulatedGlobalCount: 6510 },
+  { id: 7, initials: "PB", name: "Sgt. Paul Brooks", rank: "Sergeant", force: "Kent Police", years: "1997 – 2017", image: "/images/uk_police_ds_1781074862198.png", simulatedGlobalCount: 2010 },
+  { id: 8, initials: "EC", name: "DC Emma Carter", rank: "Detective Constable", force: "Avon & Somerset Police", years: "2003 – 2024", image: "/images/uk_police_jw_1781074874420.png", simulatedGlobalCount: 520 },
+  { id: 9, initials: "JM", name: "PC James Morgan", rank: "Constable", force: "Northumbria Police", years: "2010 – 2023", image: "/images/uk_police_rm_1781074886666.png", simulatedGlobalCount: 88 },
 ];
 
 export default function RemembrancePage() {
   const [litCandles, setLitCandles] = useState<Set<number>>(new Set());
   const [totalCandles, setTotalCandles] = useState(4847);
   const [justLit, setJustLit] = useState<number | null>(null);
+  
+  const [generatingPdfId, setGeneratingPdfId] = useState<number | null>(null);
+  const pdfRef = useRef<HTMLDivElement>(null);
 
   // Load from localStorage
   useEffect(() => {
@@ -51,10 +58,54 @@ export default function RemembrancePage() {
     setTimeout(() => setJustLit(null), 3000);
   }, [litCandles]);
 
+  const generatePDF = async (officer: OfficerMemorial) => {
+    setGeneratingPdfId(officer.id);
+    
+    // Allow React to render the hidden component
+    setTimeout(async () => {
+      if (pdfRef.current) {
+        try {
+          const canvas = await html2canvas(pdfRef.current, {
+            scale: 2, // High DPI for printing
+            useCORS: true,
+            logging: false,
+          });
+          
+          const imgData = canvas.toDataURL("image/jpeg", 1.0);
+          
+          // A4 Landscape dimensions in mm: 297 x 210
+          const pdf = new jsPDF({
+            orientation: "landscape",
+            unit: "mm",
+            format: "a4"
+          });
+          
+          pdf.addImage(imgData, "JPEG", 0, 0, 297, 210);
+          pdf.save(`Book_of_Condolence_${officer.name.replace(/ /g, "_")}.pdf`);
+        } catch (error) {
+          console.error("Failed to generate PDF", error);
+          alert("Sorry, there was an issue generating the PDF. Please try again.");
+        } finally {
+          setGeneratingPdfId(null);
+        }
+      }
+    }, 500); // give it a moment to render images
+  };
+
   const grayscale = calculateColorization(totalCandles);
 
   return (
     <>
+      {/* Hidden container for PDF generation */}
+      {generatingPdfId !== null && (
+        <div className="absolute top-[-9999px] left-[-9999px]">
+          <CondolenceBookPDF 
+            ref={pdfRef} 
+            officer={memorials.find(m => m.id === generatingPdfId)!} 
+          />
+        </div>
+      )}
+
       {/* Hero — Reverent, dark */}
       <section className="relative pt-40 pb-20 overflow-hidden">
         <div className="absolute inset-0 z-0">
@@ -88,7 +139,7 @@ export default function RemembrancePage() {
             <p className="text-lg text-slate-light max-w-2xl mx-auto mb-8">
               Light a candle, share a memory, and ensure their legacy endures.
               As more candles are lit, colour returns to their portraits — a
-              symbol that they are remembered.
+              symbol that they are remembered. You can also download a Book of Condolence PDF for printing.
             </p>
 
             {/* Counter */}
@@ -161,28 +212,51 @@ export default function RemembrancePage() {
                         {memorial.name}
                       </h3>
                       <p className="text-xs text-azure mb-1">{memorial.rank} · {memorial.force}</p>
-                      <p className="text-xs text-slate mb-3">{memorial.years}</p>
-                      <p className="text-xs text-slate-light italic leading-relaxed mb-4">
-                        &ldquo;{memorial.tribute}&rdquo;
-                      </p>
+                      <p className="text-xs text-slate mb-4">{memorial.years}</p>
 
-                      {/* Light candle button */}
-                      <button
-                        onClick={() => lightCandle(memorial.id)}
-                        disabled={isLit}
-                        className={`w-full flex items-center justify-center gap-2 py-2.5 rounded-lg text-xs font-semibold transition-all duration-300 ${
-                          isLit
-                            ? "bg-gold/10 text-gold cursor-default"
-                            : "bg-white/5 text-slate-light hover:bg-gold/10 hover:text-gold"
-                        }`}
-                      >
-                        <div className={`w-1.5 h-3 rounded-full ${
-                          isLit
-                            ? "bg-gradient-to-t from-gold to-amber animate-candle"
-                            : "bg-slate/50"
-                        }`} />
-                        {isLit ? "Candle Lit" : "Light a Candle"}
-                      </button>
+                      <div className="space-y-2">
+                        {/* Light candle button */}
+                        <button
+                          onClick={() => lightCandle(memorial.id)}
+                          disabled={isLit}
+                          className={`w-full flex items-center justify-center gap-2 py-2.5 rounded-lg text-xs font-semibold transition-all duration-300 ${
+                            isLit
+                              ? "bg-gold/10 text-gold cursor-default"
+                              : "bg-white/5 text-slate-light hover:bg-gold/10 hover:text-gold"
+                          }`}
+                        >
+                          <div className={`w-1.5 h-3 rounded-full ${
+                            isLit
+                              ? "bg-gradient-to-t from-gold to-amber animate-candle"
+                              : "bg-slate/50"
+                          }`} />
+                          {isLit ? "Candle Lit" : "Light a Candle"}
+                        </button>
+
+                        {/* Download PDF button */}
+                        <button
+                          onClick={() => generatePDF(memorial)}
+                          disabled={generatingPdfId === memorial.id}
+                          className="w-full flex items-center justify-center gap-2 py-2.5 rounded-lg text-xs font-semibold transition-all duration-300 bg-white/5 text-slate-light hover:bg-white/10 hover:text-pure-white border border-white/5 hover:border-white/10"
+                        >
+                          {generatingPdfId === memorial.id ? (
+                            <span className="flex items-center gap-2">
+                              <svg className="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                              </svg>
+                              Generating PDF...
+                            </span>
+                          ) : (
+                            <>
+                              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" />
+                              </svg>
+                              Download Book of Condolence
+                            </>
+                          )}
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </ScrollReveal>

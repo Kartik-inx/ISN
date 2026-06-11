@@ -12,13 +12,12 @@ export const navLinks = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   { label: "The Issue", href: "/the-issue" },
-  { label: "Stories", href: "/stories" },
-  { label: "Voices", href: "/voices" },
   { label: "News", href: "/news" },
-  { label: "Events", href: "/events" },
-  { label: "Research", href: "/research" },
-  { label: "Recovery", href: "/recovery" },
-  { label: "Founders", href: "/founders" },
+  { label: "Stories", href: "/stories" },
+  { label: "Wall of Remembrance", href: "/remembrance" },
+  { label: "Research and Evidence", href: "/research" },
+  { label: "Recover and Support", href: "/recovery" },
+  { label: "Take Actions", href: "/take-action" },
 ] as const;
 
 export const impactStats = [

@@ -12,129 +12,201 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Layers */}
-      <div className="absolute inset-0">
+    <section className="relative min-h-screen flex flex-col justify-center items-center overflow-hidden bg-midnight pt-24 px-6 md:px-12 select-none">
+      
+      {/* ─── LAYER 1: CINEMATIC BACKGROUND IMAGE ─── */}
+      <div className="absolute inset-0 z-0 select-none pointer-events-none">
         <Image
-          src="/images/bannerBg.png"
-          alt="It Stops Now Banner"
+          src="/images/homebaner.png"
+          alt="London skyline memorial background"
           fill
           priority
-          className="object-cover object-center opacity-90"
+          className="object-cover object-center scale-100 opacity-80 transition-opacity duration-1000"
         />
-        {/* Deep gradient base & Overlays */}
-        <div className="absolute inset-0 bg-gradient-to-b from-obsidian/10 via-midnight/40 to-midnight/80" />
-        <div className="absolute inset-0 bg-gradient-to-r from-obsidian/40 via-midnight/10 to-transparent" />
+        
+        {/* Soft vignettes & radial gradients to pop typography without blocking details */}
+        <div className="absolute inset-0 bg-radial-vignette" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_50%,rgba(6,10,20,0.65)_0%,rgba(6,10,20,0.1)_60%,rgba(6,10,20,0.85)_100%)]" />
+        
+        {/* Volumetric blue emergency light bleed from the left */}
+        <div className="absolute top-0 bottom-0 left-0 w-1/3 bg-gradient-to-r from-azure/10 to-transparent blur-3xl opacity-40 pointer-events-none" />
 
-        {/* Radial glow effects */}
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] rounded-full bg-azure/5 blur-[120px]" />
-        <div className="absolute bottom-0 left-0 w-[600px] h-[400px] rounded-full bg-royal/8 blur-[100px]" />
-        <div className="absolute top-1/3 right-0 w-[400px] h-[300px] rounded-full bg-sky/5 blur-[80px]" />
-
-        {/* Grid pattern overlay */}
-        <div
-          className="absolute inset-0 opacity-[0.03]"
-          style={{
-            backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
-            backgroundSize: "60px 60px",
-            maskImage: "linear-gradient(to bottom, transparent 0%, transparent 100px, black 200px)",
-            WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, transparent 100px, black 200px)",
-          }}
-        />
-
+        {/* Ambient candle flame warmth glow rising from bottom */}
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-1/2 bg-[radial-gradient(ellipse_at_bottom,rgba(245,158,11,0.15)_0%,rgba(245,158,11,0.02)_55%,transparent_100%)] blur-2xl animate-[candle-glow_6s_ease-in-out_infinite]" />
       </div>
 
-      {/* Content */}
-      <div className="relative z-10 max-w-5xl mx-auto px-6 text-center mt-12">
-        {/* Eyebrow badge */}
-        <div
-          className={`inline-flex items-center gap-2 mb-5 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-md shadow-lg shadow-black/20 transition-all duration-1000 ${
-            loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+      {/* ─── LAYER 3: FLOATING CONTENT AREA (NO BORDERS/NO GIANT CARD) ─── */}
+      <div className="relative z-20 w-full mx-auto px-0 md:px-6 flex justify-center md:justify-end select-text">
+        <div 
+          className={`w-full max-w-[650px] relative overflow-hidden rounded-3xl p-6 sm:p-8 md:p-12 text-center md:text-left flex flex-col items-center md:items-start transition-all duration-1000 ${
+            loaded ? "opacity-100 scale-100" : "opacity-0 scale-95"
           }`}
         >
-          <span className="relative flex h-3 w-3">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-azure opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-3 w-3 bg-sky"></span>
-          </span>
-          <span className="text-xs sm:text-sm font-semibold tracking-widest uppercase text-silver">
-            Standing up for the police family
-          </span>
-        </div>
+          {/* Subtle backdrop blur only behind the text area */}
+          <div className="absolute inset-0 z-0 backdrop-blur-[3px] rounded-3xl bg-midnight/20 pointer-events-none" />
+          
+          <div className="relative z-10 w-full flex flex-col items-center md:items-start">
+            
+            {/* Tagline */}
+            <div className="inline-flex items-center gap-3 mb-6 select-none">
+              <span className="w-1.5 h-1.5 rounded-full bg-azure animate-pulse" />
+              <span className="text-[10px] sm:text-xs font-bold tracking-[0.35em] uppercase text-pure-white/50">
+                The Police Family Support Movement
+              </span>
+              <span className="w-1.5 h-1.5 rounded-full bg-azure animate-pulse" />
+            </div>
 
-        {/* Main Headline */}
-        <h1
-          className={`font-display font-extrabold leading-none tracking-tight mb-5 transition-all duration-1000 delay-200 ${
-            loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-          }`}
-        >
-          <span className="block text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] text-pure-white drop-shadow-xl">
-            It Stops
-          </span>
-          <span className="block text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] gradient-text mt-1 drop-shadow-xl">
-            Now.
-          </span>
-        </h1>
+            {/* Structured Editorial Headline */}
+            <h1 className="font-display font-black uppercase text-3xl sm:text-5xl md:text-5xl lg:text-6xl tracking-wider text-pure-white leading-[1.08] mb-8 max-w-2xl select-none drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]">
+              BEHIND EVERY<br />
+              UNIFORM IS A<br />
+              HUMAN BEING
+            </h1>
 
-        {/* Subtitle */}
-        <p
-          className={`text-base sm:text-lg md:text-xl text-slate-light max-w-2xl mx-auto leading-relaxed mb-8 font-medium transition-all duration-1000 delay-400 ${
-            loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-          }`}
-        >
-          Championing the voices of serving and retired officers, honouring the fallen, and demanding the change that is long overdue.
-        </p>
+            {/* Readability Subtitle */}
+            <p className="text-sm sm:text-base md:text-lg text-cloud/90 max-w-2xl leading-relaxed mb-10 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+              We champion the voices of serving and retired police officers, honor the fallen, and demand the deep cultural change that is long overdue. You are not alone.
+            </p>
 
-        {/* CTA Buttons */}
-        <div
-          className={`flex flex-col sm:flex-row items-center justify-center gap-4 mb-12 transition-all duration-1000 delay-500 ${
-            loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-          }`}
-        >
-          <Link href="/take-action" className="group relative inline-flex items-center justify-center px-6 py-3 text-sm sm:text-base font-bold text-white transition-all duration-200 bg-azure border border-transparent rounded-lg hover:bg-sky focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-azure shadow-[0_0_20px_rgba(37,99,235,0.3)] hover:shadow-[0_0_30px_rgba(37,99,235,0.5)]">
-            Take Action Now
-            <svg className="w-4 h-4 ml-2 -mr-1 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-            </svg>
-          </Link>
-          <Link href="/about" className="inline-flex items-center justify-center px-6 py-3 text-sm sm:text-base font-bold text-white transition-all duration-200 bg-black/20 border-2 border-white/20 rounded-lg hover:bg-white/10 hover:border-white/40 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white/50 backdrop-blur-md">
-            Learn Our Story
-          </Link>
-        </div>
+            {/* Structured CTA Section */}
+            <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4 w-full max-w-md select-none">
+              <Link 
+                href="/take-action" 
+                className="w-full sm:w-auto inline-flex items-center justify-center p-4 text-xs sm:text-sm font-bold uppercase tracking-widest text-pure-white bg-gradient-to-r from-azure/90 to-sky/95 border border-azure/30 hover:from-sky hover:to-azure shadow-[0_4px_20px_rgba(37,99,235,0.2)] hover:shadow-[0_4px_30px_rgba(37,99,235,0.45)] transition-all duration-300 rounded-xl"
+              >
+                Take Action
+              </Link>
 
-        {/* Trust Indicators */}
-        <div className={`grid grid-cols-3 divide-x divide-white/10 border border-white/10 py-5 max-w-2xl mx-auto bg-black/30 backdrop-blur-md rounded-2xl mb-16 shadow-2xl transition-all duration-1000 delay-600 ${loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-          <div className="flex flex-col items-center justify-center">
-            <span className="text-3xl font-extrabold text-pure-white mb-1 tracking-tight">50K+</span>
-            <span className="text-[10px] sm:text-xs text-slate-light uppercase tracking-widest font-semibold">Supporters</span>
-          </div>
-          <div className="flex flex-col items-center justify-center">
-            <span className="text-3xl font-extrabold text-pure-white mb-1 tracking-tight">100+</span>
-            <span className="text-[10px] sm:text-xs text-slate-light uppercase tracking-widest font-semibold">Partner orgs</span>
-          </div>
-          <div className="flex flex-col items-center justify-center">
-            <span className="text-3xl font-extrabold text-pure-white mb-1 tracking-tight">24/7</span>
-            <span className="text-[10px] sm:text-xs text-slate-light uppercase tracking-widest font-semibold">Support</span>
-          </div>
-        </div>
+              <Link 
+                href="/remembrance" 
+                className="w-full sm:w-auto inline-flex items-center justify-center p-4 text-xs sm:text-sm font-bold uppercase tracking-widest text-pure-white bg-white/5 border border-white/10 rounded-xl hover:bg-white/10 hover:border-amber/40 hover:text-amber shadow-[0_4px_20px_rgba(0,0,0,0.1)] hover:shadow-[0_4px_25px_rgba(245,158,11,0.2)] transition-all duration-300 backdrop-blur-md"
+              >
+                Wall of Remembrance
+              </Link>
+            </div>
 
-        {/* Scroll indicator */}
-        <div
-          className={`flex flex-col items-center gap-3 transition-all duration-1000 delay-700 ${
-            loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-          }`}
-        >
-          <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-slate">Discover More</span>
-          <div className="w-6 h-10 border-2 border-white/20 rounded-full flex justify-center p-1 backdrop-blur-sm bg-white/5">
-            <div className="w-1 h-2.5 bg-azure rounded-full animate-bounce" />
+            {/* Embedded Statistics Section (Unified & Responsive) */}
+            <div className="w-full mt-12 pt-8 border-t border-white/10 select-none">
+              {/* Desktop Statistics Row */}
+              <div className="hidden md:flex items-center justify-between lg:justify-start gap-8 lg:gap-12">
+                <div className="text-left">
+                  <span className="block font-display text-2xl lg:text-3xl font-extrabold tracking-wide text-pure-white">
+                    50,000+
+                  </span>
+                  <span className="block text-[8px] uppercase tracking-[0.2em] text-cloud/90 font-bold mt-1">
+                    Supporters standing together
+                  </span>
+                </div>
+                <div className="w-px h-8 bg-white/20 shrink-0" />
+                <div className="text-left">
+                  <span className="block font-display text-2xl lg:text-3xl font-extrabold tracking-wide text-pure-white">
+                    4,281
+                  </span>
+                  <span className="block text-[8px] uppercase tracking-[0.2em] text-cloud/90 font-bold mt-1">
+                    Remembrance candles lit
+                  </span>
+                </div>
+                <div className="w-px h-8 bg-white/20 shrink-0" />
+                <div className="text-left">
+                  <span className="block font-display text-2xl lg:text-3xl font-extrabold tracking-wide text-pure-white">
+                    185+
+                  </span>
+                  <span className="block text-[8px] uppercase tracking-[0.2em] text-cloud/90 font-bold mt-1">
+                    Secure officer stories shared
+                  </span>
+                </div>
+              </div>
+
+              {/* Mobile Statistics Grid */}
+              <div className="grid grid-cols-3 gap-4 w-full md:hidden">
+                <div className="text-center">
+                  <span className="block font-display text-lg font-bold text-pure-white">
+                    50k+
+                  </span>
+                  <span className="block text-[8px] uppercase tracking-wider text-cloud/80 mt-1">
+                    Supporters
+                  </span>
+                </div>
+                <div className="text-center border-x border-white/10">
+                  <span className="block font-display text-lg font-bold text-pure-white">
+                    4.2k
+                  </span>
+                  <span className="block text-[8px] uppercase tracking-wider text-cloud/80 mt-1">
+                    Candles Lit
+                  </span>
+                </div>
+                <div className="text-center">
+                  <span className="block font-display text-lg font-bold text-pure-white">
+                    185+
+                  </span>
+                  <span className="block text-[8px] uppercase tracking-wider text-cloud/80 mt-1">
+                    Stories
+                  </span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Decorative Elements */}
-      <div className="absolute bottom-20 left-10 w-32 h-32 border border-azure/10 rounded-full animate-breathe" />
-      <div className="absolute top-40 right-16 w-20 h-20 border border-sky/10 rounded-lg rotate-45 animate-float" style={{ animationDelay: "2s" }} />
-      <div className="absolute bottom-40 right-20 w-2 h-2 rounded-full bg-azure/40 animate-breathe" style={{ animationDelay: "1s" }} />
-      <div className="absolute top-60 left-20 w-3 h-3 rounded-full bg-gold/30 animate-breathe" style={{ animationDelay: "3s" }} />
+      {/* ─── LAYER 5: ANIMATED SCROLL DOWN INDICATOR ─── */}
+      <div 
+        className={`absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 transition-all duration-1000 delay-700 ease-out ${
+          loaded ? "opacity-45" : "opacity-0"
+        }`}
+      >
+        <span className="text-[9px] uppercase tracking-[0.3em] text-slate-light">Scroll</span>
+        <div className="w-5 h-8 rounded-full border border-white/20 flex justify-center p-1.5">
+          <div className="w-1 h-1.5 rounded-full bg-azure animate-[scroll-dot_1.8s_infinite]" />
+        </div>
+      </div>
+
+      {/* ─── STYLES & CUSTOM KEYFRAMES ─── */}
+      <style jsx>{`
+        .bg-radial-vignette {
+          background: radial-gradient(
+            circle at 70% 50%,
+            rgba(6, 10, 20, 0.15) 0%,
+            rgba(6, 10, 20, 0.5) 45%,
+            rgba(6, 10, 20, 0.95) 100%
+          );
+        }
+
+        @keyframes slow-pan {
+          0%, 100% {
+            transform: scale(1);
+          }
+          50% {
+            transform: scale(1.03);
+          }
+        }
+
+        @keyframes candle-glow {
+          0%, 100% {
+            opacity: 0.7;
+            transform: translate(-50%, 0) scale(1);
+          }
+          50% {
+            opacity: 1;
+            transform: translate(-50%, 0) scale(1.02);
+          }
+        }
+
+        @keyframes scroll-dot {
+          0% {
+            transform: translateY(0);
+            opacity: 1;
+          }
+          50% {
+            transform: translateY(6px);
+            opacity: 0.3;
+          }
+          100% {
+            transform: translateY(0);
+            opacity: 1;
+          }
+        }
+      `}</style>
     </section>
   );
 }

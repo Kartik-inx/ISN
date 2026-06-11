@@ -211,6 +211,107 @@ export default function RecoveryPage() {
         </div>
       </section>
 
+      {/* Recommended Media */}
+      <section className="relative py-20 bg-midnight">
+        <div className="max-w-7xl mx-auto px-6">
+          <ScrollReveal>
+            <h2 className="text-3xl font-display font-bold text-pure-white mb-12 text-center">
+              Recommended Resources
+            </h2>
+          </ScrollReveal>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Apps */}
+            <ScrollReveal delay={0.1}>
+              <div className="p-8 rounded-2xl bg-navy/40 border border-white/5 h-full">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-10 h-10 rounded-xl bg-azure/10 flex items-center justify-center text-azure">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
+                      <line x1="12" y1="18" x2="12.01" y2="18" />
+                    </svg>
+                  </div>
+                  <h3 className="text-xl font-display font-semibold text-pure-white">Apps</h3>
+                </div>
+                <div className="space-y-6">
+                  <div>
+                    <h4 className="font-semibold text-white mb-1">Pocket Sergeant</h4>
+                    <p className="text-xs text-slate-light">Essential operational and wellbeing guidance for police officers.</p>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-white mb-1">Headspace</h4>
+                    <p className="text-xs text-slate-light">Meditation and sleep support, often available free for emergency services.</p>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-white mb-1">Backup Buddy</h4>
+                    <p className="text-xs text-slate-light">Mental health support app designed specifically for police forces.</p>
+                  </div>
+                </div>
+              </div>
+            </ScrollReveal>
+
+            {/* Books */}
+            <ScrollReveal delay={0.2}>
+              <div className="p-8 rounded-2xl bg-navy/40 border border-white/5 h-full">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-10 h-10 rounded-xl bg-azure/10 flex items-center justify-center text-azure">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+                      <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+                    </svg>
+                  </div>
+                  <h3 className="text-xl font-display font-semibold text-pure-white">Books</h3>
+                </div>
+                <div className="space-y-6">
+                  <div>
+                    <h4 className="font-semibold text-white mb-1">Emotional Survival for Law Enforcement</h4>
+                    <p className="text-xs text-slate-light">Dr. Kevin Gilmartin's essential guide to maintaining mental health.</p>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-white mb-1">The Body Keeps the Score</h4>
+                    <p className="text-xs text-slate-light">Bessel van der Kolk's definitive work on trauma and healing.</p>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-white mb-1">Man's Search for Meaning</h4>
+                    <p className="text-xs text-slate-light">Viktor Frankl's classic on finding purpose in difficult circumstances.</p>
+                  </div>
+                </div>
+              </div>
+            </ScrollReveal>
+
+            {/* Podcasts */}
+            <ScrollReveal delay={0.3}>
+              <div className="p-8 rounded-2xl bg-navy/40 border border-white/5 h-full">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-10 h-10 rounded-xl bg-azure/10 flex items-center justify-center text-azure">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z" />
+                      <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
+                      <line x1="12" y1="19" x2="12" y2="22" />
+                    </svg>
+                  </div>
+                  <h3 className="text-xl font-display font-semibold text-pure-white">Podcasts</h3>
+                </div>
+                <div className="space-y-6">
+                  <div>
+                    <h4 className="font-semibold text-white mb-1">The Tango Romeo Podcast</h4>
+                    <p className="text-xs text-slate-light">Real conversations about mental health in emergency services.</p>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-white mb-1">Police Hour</h4>
+                    <p className="text-xs text-slate-light">Discussions on current policing issues, including welfare.</p>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-white mb-1">Oscar Kilo Podcasts</h4>
+                    <p className="text-xs text-slate-light">Official wellbeing broadcasts from the National Police Wellbeing Service.</p>
+                  </div>
+                </div>
+              </div>
+            </ScrollReveal>
+          </div>
+        </div>
+      </section>
+
       {/* Message of hope */}
       <section className="relative py-20 bg-obsidian">
         <div className="max-w-3xl mx-auto px-6 text-center">

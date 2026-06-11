@@ -2,60 +2,34 @@ import { Metadata } from "next";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 import Link from "next/link";
 import Image from "next/image";
+import MPContactWizard from "@/components/forms/MPContactWizard";
 
 export const metadata: Metadata = {
   title: "Take Action",
-  description: "Join the movement — sign petitions, share your story, donate, volunteer, and help drive real change for the police family.",
+  description: "Join the movement — write to your MP, donate, volunteer, and help drive real change for the police family.",
 };
 
-const actions = [
-  {
-    title: "Sign the Petition",
-    description: "Add your name to our open letter demanding systemic reform in how police officers and their families are supported. Every signature amplifies the call for change.",
-    icon: "✍️",
-    cta: "Sign Now",
-    color: "azure",
-    size: "large",
-  },
+const secondaryActions = [
   {
     title: "Donate",
     description: "Your contribution funds research, campaign activities, officer support programmes, and the fight for policy change. Every pound makes a difference.",
     icon: "💙",
     cta: "Contribute",
-    color: "azure",
-    size: "normal",
-  },
-  {
-    title: "Share Your Story",
-    description: "If you're a serving or retired officer, or a member of the police family, your experience can help drive the change we need. All submissions can be anonymous.",
-    icon: "📝",
-    cta: "Submit Story",
-    color: "azure",
-    size: "normal",
+    href: "/donate",
   },
   {
     title: "Volunteer",
     description: "We need people to help with events, community outreach, social media, research assistance, and more. Your time and skills can change lives.",
     icon: "🤝",
     cta: "Get Involved",
-    color: "azure",
-    size: "normal",
+    href: "#",
   },
   {
-    title: "Contact Your Representative",
-    description: "Write to your local MP about officer welfare. We provide template letters and talking points to make it easy. Political pressure drives policy change.",
-    icon: "📮",
-    cta: "Write Now",
-    color: "azure",
-    size: "normal",
-  },
-  {
-    title: "Spread the Word",
-    description: "Share our campaign on social media, talk to your community, and help us reach more people. Awareness is the first step toward action.",
-    icon: "📢",
-    cta: "Share Campaign",
-    color: "azure",
-    size: "large",
+    title: "Share Your Story",
+    description: "If you're a serving or retired officer, or a member of the police family, your experience can help drive the change we need. All submissions can be anonymous.",
+    icon: "📝",
+    cta: "Submit Story",
+    href: "#",
   },
 ];
 
@@ -63,7 +37,7 @@ export default function TakeActionPage() {
   return (
     <>
       {/* Hero — Bold, urgent */}
-      <section className="relative pt-40 pb-28 overflow-hidden">
+      <section className="relative pt-40 pb-20 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
             src="/images/hero_take_action.png"
@@ -82,7 +56,7 @@ export default function TakeActionPage() {
           backgroundSize: "32px 32px",
         }} />
 
-        <div className="relative max-w-5xl mx-auto px-6 text-center">
+        <div className="relative max-w-5xl mx-auto px-6 text-center z-10">
           <ScrollReveal>
             <span className="inline-flex items-center gap-2 text-sm font-semibold tracking-[0.2em] uppercase text-azure mb-6">
               <span className="w-8 h-px bg-azure" />
@@ -90,39 +64,52 @@ export default function TakeActionPage() {
               <span className="w-8 h-px bg-azure" />
             </span>
             <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-display font-extrabold text-pure-white leading-none tracking-tight drop-shadow-xl mb-8">
-              Your Voice{" "}
-              <span className="gradient-text">Matters.</span>
+              Write to Your <span className="gradient-text">MP.</span>
             </h1>
             <p className="text-lg sm:text-xl text-slate-light max-w-2xl mx-auto leading-relaxed">
-              Every action counts. Whether you sign, share, donate, or simply stand
-              with us — you become part of the change the police family needs.
+              Political pressure drives policy change. Use our quick wizard below to find your MP and send a personalised letter demanding better welfare support for police officers.
             </p>
           </ScrollReveal>
         </div>
       </section>
 
-      {/* Action Cards — Bento Grid */}
-      <section className="relative py-16 pb-28">
+      {/* MP Contact Wizard Section */}
+      <section className="relative py-12 -mt-10 z-20">
+        <div className="max-w-5xl mx-auto px-6">
+          <MPContactWizard />
+        </div>
+      </section>
+
+      {/* Secondary Actions */}
+      <section className="relative py-16 pb-28 bg-obsidian">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {actions.map((action, i) => (
+          <ScrollReveal>
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-display font-bold text-pure-white mb-4">
+                Other Ways to Help
+              </h2>
+              <p className="text-slate-light">Every action counts. Join the movement today.</p>
+            </div>
+          </ScrollReveal>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {secondaryActions.map((action, i) => (
               <ScrollReveal
                 key={action.title}
                 delay={i * 0.08}
-                className={action.size === "large" ? "lg:col-span-2" : ""}
               >
-                <div className="group relative h-full p-8 rounded-2xl bg-navy/50 border border-white/5 card-lift overflow-hidden">
+                <div className="group relative h-full p-8 rounded-2xl bg-navy/30 border border-white/5 card-lift overflow-hidden text-center">
                   <div className="relative z-10">
-                    <div className="text-4xl mb-5">{action.icon}</div>
+                    <div className="text-4xl mb-5 flex justify-center">{action.icon}</div>
                     <h3 className="text-xl font-display font-semibold text-pure-white mb-3">
                       {action.title}
                     </h3>
-                    <p className="text-sm text-slate-light leading-relaxed mb-6">
+                    <p className="text-sm text-slate-light leading-relaxed mb-8">
                       {action.description}
                     </p>
-                    <button className="btn-primary text-sm px-6 py-3">
-                      <span>{action.cta}</span>
-                    </button>
+                    <Link href={action.href} className="btn-outline text-sm px-6 py-2 inline-block">
+                      {action.cta}
+                    </Link>
                   </div>
 
                   {/* Hover gradient */}
@@ -135,7 +122,7 @@ export default function TakeActionPage() {
       </section>
 
       {/* Impact tracker */}
-      <section className="relative py-20 bg-obsidian">
+      <section className="relative py-20 bg-midnight border-t border-white/5">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <ScrollReveal>
             <h2 className="text-3xl font-display font-bold text-pure-white mb-4">
@@ -143,12 +130,12 @@ export default function TakeActionPage() {
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-10">
               {[
-                { number: "52,000+", label: "Petition signatures" },
+                { number: "52,000+", label: "Letters Sent" },
                 { number: "£180K+", label: "Funds raised" },
                 { number: "350+", label: "Stories shared" },
                 { number: "12", label: "Policy recommendations" },
               ].map((item) => (
-                <div key={item.label} className="p-5 rounded-xl glass">
+                <div key={item.label} className="p-5 rounded-xl glass border border-white/5">
                   <span className="text-2xl font-display font-bold text-azure">{item.number}</span>
                   <p className="text-xs text-slate-light mt-1">{item.label}</p>
                 </div>

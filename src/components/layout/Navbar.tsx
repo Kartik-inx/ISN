@@ -35,54 +35,47 @@ export default function Navbar() {
             : "bg-transparent py-5"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+        <div className="max-w-screen-2xl mx-auto px-6 lg:px-8 flex items-center justify-between">
           {/* Logo / Wordmark */}
-          <Link href="/" className="block transition-transform hover:scale-105 duration-300">
+          <Link href="/" className="flex-shrink-0 transition-transform hover:scale-105 duration-300">
             <Image
               src="/images/ISN-Logo.svg"
               alt="It Stops Now Logo"
-              width={180}
-              height={40}
+              width={160}
+              height={36}
               priority
-              className="h-10 w-auto"
+              className="h-9 w-auto"
             />
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-1">
+          <div className="hidden xl:flex items-center justify-end flex-1 ml-10 gap-1.5">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
               return (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`relative px-4 py-2 text-sm font-medium transition-colors duration-300 rounded-lg ${
+                  className={`relative px-3 py-2 text-[14px] font-medium tracking-wide whitespace-nowrap transition-colors duration-300 rounded-lg ${
                     isActive
                       ? "text-pure-white"
-                      : "text-slate-light hover:text-pure-white"
+                      : "text-slate-light hover:text-pure-white hover:bg-white/5"
                   }`}
                 >
                   {link.label}
                   {isActive && (
-                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-5 h-0.5 bg-azure rounded-full" />
+                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 bg-azure rounded-full" />
                   )}
                 </Link>
               );
             })}
           </div>
 
-          {/* CTA + Mobile Toggle */}
-          <div className="flex items-center gap-4">
-            <Link
-              href="/take-action"
-              className="hidden sm:inline-flex btn-primary text-sm px-5 py-2.5"
-            >
-              <span>Take Action</span>
-            </Link>
-
+          {/* Mobile Toggle */}
+          <div className="flex items-center xl:hidden ml-auto">
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="lg:hidden relative w-10 h-10 flex items-center justify-center rounded-xl transition-colors hover:bg-white/5"
+              className="relative w-10 h-10 flex items-center justify-center rounded-xl transition-colors hover:bg-white/5"
               aria-label="Toggle navigation menu"
               aria-expanded={mobileOpen}
             >
@@ -134,16 +127,6 @@ export default function Navbar() {
                 </Link>
               );
             })}
-          </div>
-          <div
-            className={`mt-10 transition-all duration-500 ${
-              mobileOpen ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
-            }`}
-            style={{ transitionDelay: mobileOpen ? "600ms" : "0ms" }}
-          >
-            <Link href="/take-action" className="btn-primary inline-flex text-lg px-8 py-4">
-              <span>Take Action</span>
-            </Link>
           </div>
         </div>
       </div>
