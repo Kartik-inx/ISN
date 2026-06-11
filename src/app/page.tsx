@@ -7,6 +7,7 @@ import StoriesPreview from "@/components/sections/StoriesPreview";
 import VoicesPreview from "@/components/sections/VoicesPreview";
 import EventsPreview from "@/components/sections/EventsPreview";
 import PocketSergeantBanner from "@/components/sections/PocketSergeantBanner";
+import SupportedByPocketSergeant from "@/components/sections/SupportedByPocketSergeant";
 import CTABanner from "@/components/sections/CTABanner";
 
 export default function HomePage() {
@@ -21,6 +22,7 @@ export default function HomePage() {
       <VoicesPreview />
       <EventsPreview />
       <CTABanner />
+      <SupportedByPocketSergeant />
       <PocketSergeantBanner />
     </>
   );
