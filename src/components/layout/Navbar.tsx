@@ -16,8 +16,17 @@ const navLinks = [
 ] as const;
 
 export default function Navbar() {
+  const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 30);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {
     setMobileOpen(false);
@@ -32,9 +41,15 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#0a0f1e] py-5 transition-colors duration-300">
+      <nav
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          scrolled || mobileOpen
+            ? "bg-[#0a0f1e]/95 backdrop-blur-md py-3 shadow-lg shadow-midnight/30"
+            : "bg-transparent py-5"
+        }`}
+      >
         <div className="max-w-screen-2xl mx-auto px-6 lg:px-8 flex items-center justify-between">
-          {/* LEFT SIDE: Brand Logo (visible on both mobile and desktop) */}
+          {/* LEFT SIDE: Brand Logo */}
           <div className="flex items-center justify-start xl:w-48">
             <Link href="/" className="flex-shrink-0 transition-transform hover:scale-105 duration-300">
               <Image
@@ -48,7 +63,7 @@ export default function Navbar() {
             </Link>
           </div>
 
-          {/* CENTRE NAVIGATION LINKS (in this exact order) */}
+          {/* CENTRE NAVIGATION LINKS */}
           <div className="hidden xl:flex items-center justify-center flex-1 gap-10">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
@@ -79,7 +94,7 @@ export default function Navbar() {
             </Link>
           </div>
 
-          {/* Mobile Toggle / Hamburger Menu (hidden on desktop view) */}
+          {/* Mobile Toggle / Hamburger Menu */}
           <div className="flex items-center xl:hidden ml-auto">
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
@@ -115,10 +130,8 @@ export default function Navbar() {
           mobileOpen ? "visible opacity-100" : "invisible opacity-0"
         }`}
       >
-        {/* Same dark background on mobile menu */}
         <div className="absolute inset-0 bg-[#0a0f1e]" />
 
-        {/* Mobile menu content container */}
         <div className="relative h-full flex flex-col justify-center px-8">
           <div className="space-y-5 max-w-xs mx-auto w-full text-center">
             {navLinks.map((link, i) => {
