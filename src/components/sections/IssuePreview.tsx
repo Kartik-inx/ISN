@@ -69,6 +69,44 @@ export default function IssuePreview() {
                   <path d="M5 12h14M12 5l7 7-7 7" />
                 </svg>
               </Link>
+
+              {/* IN PARLIAMENT Widget */}
+              <div className="mt-12 p-6 rounded-2xl bg-navy/40 border border-white/5 relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-24 h-24 bg-azure/5 rounded-bl-full pointer-events-none" />
+                
+                <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-azure mb-4 flex items-center gap-2 select-none">
+                  <span className="w-2 h-2 rounded-full bg-azure animate-pulse" />
+                  IN PARLIAMENT
+                </h3>
+                
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                  <div>
+                    <span className="block text-2xl font-display font-bold text-pure-white">23</span>
+                    <span className="block text-[10px] uppercase tracking-wider text-slate-light/85 mt-1 leading-tight">MPs engaged</span>
+                  </div>
+                  <div>
+                    <span className="block text-2xl font-display font-bold text-pure-white">11</span>
+                    <span className="block text-[10px] uppercase tracking-wider text-slate-light/85 mt-1 leading-tight">Parliamentary meetings</span>
+                  </div>
+                  <div>
+                    <span className="block text-2xl font-display font-bold text-pure-white">7</span>
+                    <span className="block text-[10px] uppercase tracking-wider text-slate-light/85 mt-1 leading-tight">Written questions asked</span>
+                  </div>
+                  <div>
+                    <span className="block text-2xl font-display font-bold text-pure-white">3</span>
+                    <span className="block text-[10px] uppercase tracking-wider text-slate-light/85 mt-1 leading-tight">Debates contributed to</span>
+                  </div>
+                </div>
+                
+                <div className="mt-5 pt-4 border-t border-white/5">
+                  <Link
+                    href="/the-issue"
+                    className="inline-flex items-center gap-1.5 text-xs text-slate hover:text-azure font-semibold transition-colors group"
+                  >
+                    View all parliamentary activity <span className="transition-transform group-hover:translate-x-1">→</span>
+                  </Link>
+                </div>
+              </div>
             </div>
           </ScrollReveal>
 

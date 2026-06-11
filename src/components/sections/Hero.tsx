@@ -48,12 +48,17 @@ export default function Hero() {
           <div className="relative z-10 w-full flex flex-col items-center md:items-start">
             
             {/* Tagline */}
-            <div className="inline-flex items-center gap-3 mb-6 select-none">
+            <div className="inline-flex items-center gap-3 mb-4 select-none">
               <span className="w-1.5 h-1.5 rounded-full bg-azure animate-pulse" />
               <span className="text-[10px] sm:text-xs font-bold tracking-[0.35em] uppercase text-pure-white/50">
                 The Police Family Support Movement
               </span>
               <span className="w-1.5 h-1.5 rounded-full bg-azure animate-pulse" />
+            </div>
+
+            {/* Tagline sub-label */}
+            <div className="text-xs sm:text-sm font-bold tracking-[0.25em] uppercase text-azure mb-8 select-none">
+              PROTECTING THOSE WHO PROTECT THE PUBLIC.
             </div>
 
             {/* Structured Editorial Headline */}
@@ -69,26 +74,32 @@ export default function Hero() {
             </p>
 
             {/* Structured CTA Section */}
-            <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4 w-full max-w-md select-none">
+            <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center md:justify-start gap-4 w-full select-none animate-fadeIn">
               <Link 
                 href="/take-action" 
-                className="w-full sm:w-auto inline-flex items-center justify-center p-4 text-xs sm:text-sm font-bold uppercase tracking-widest text-pure-white bg-gradient-to-r from-azure/90 to-sky/95 border border-azure/30 hover:from-sky hover:to-azure shadow-[0_4px_20px_rgba(37,99,235,0.2)] hover:shadow-[0_4px_30px_rgba(37,99,235,0.45)] transition-all duration-300 rounded-xl"
+                className="w-full sm:w-auto inline-flex items-center justify-center py-3.5 px-6 text-xs font-bold uppercase tracking-widest text-pure-white bg-gradient-to-r from-azure/90 to-sky/95 border border-azure/30 hover:from-sky hover:to-azure shadow-[0_4px_20px_rgba(37,99,235,0.2)] hover:shadow-[0_4px_30px_rgba(37,99,235,0.45)] transition-all duration-300 rounded-xl"
               >
-                Take Action
+                GET INVOLVED
+              </Link>
+
+              <Link 
+                href="/stories" 
+                className="w-full sm:w-auto inline-flex items-center justify-center py-3.5 px-6 text-xs font-bold uppercase tracking-widest text-pure-white bg-white/5 border border-white/10 rounded-xl hover:bg-white/10 hover:border-azure/40 hover:text-azure shadow-[0_4px_20px_rgba(0,0,0,0.1)] transition-all duration-300 backdrop-blur-md"
+              >
+                READ THE STORIES
               </Link>
 
               <Link 
                 href="/remembrance" 
-                className="w-full sm:w-auto inline-flex items-center justify-center p-4 text-xs sm:text-sm font-bold uppercase tracking-widest text-pure-white bg-white/5 border border-white/10 rounded-xl hover:bg-white/10 hover:border-amber/40 hover:text-amber shadow-[0_4px_20px_rgba(0,0,0,0.1)] hover:shadow-[0_4px_25px_rgba(245,158,11,0.2)] transition-all duration-300 backdrop-blur-md"
+                className="w-full sm:w-auto inline-flex items-center justify-center py-3.5 px-6 text-xs font-bold uppercase tracking-widest text-pure-white bg-white/5 border border-white/10 rounded-xl hover:bg-white/10 hover:border-amber/40 hover:text-amber shadow-[0_4px_20px_rgba(0,0,0,0.1)] hover:shadow-[0_4px_25px_rgba(245,158,11,0.2)] transition-all duration-300 backdrop-blur-md"
               >
-                Wall of Remembrance
+                VIEW ROLL OF HONOUR
               </Link>
             </div>
 
             {/* Embedded Statistics Section (Unified & Responsive) */}
             <div className="w-full mt-12 pt-8 border-t border-white/10 select-none">
-              {/* Desktop Statistics Row */}
-              <div className="hidden md:flex items-center justify-between lg:justify-start gap-8 lg:gap-12">
+              <div className="flex flex-wrap items-center justify-between lg:justify-start gap-6 lg:gap-12">
                 <div className="text-left">
                   <span className="block font-display text-2xl lg:text-3xl font-extrabold tracking-wide text-pure-white">
                     50,000+
@@ -97,7 +108,7 @@ export default function Hero() {
                     Supporters standing together
                   </span>
                 </div>
-                <div className="w-px h-8 bg-white/20 shrink-0" />
+                <div className="hidden sm:block w-px h-8 bg-white/20 shrink-0" />
                 <div className="text-left">
                   <span className="block font-display text-2xl lg:text-3xl font-extrabold tracking-wide text-pure-white">
                     4,281
@@ -106,41 +117,13 @@ export default function Hero() {
                     Remembrance candles lit
                   </span>
                 </div>
-                <div className="w-px h-8 bg-white/20 shrink-0" />
+                <div className="hidden sm:block w-px h-8 bg-white/20 shrink-0" />
                 <div className="text-left">
                   <span className="block font-display text-2xl lg:text-3xl font-extrabold tracking-wide text-pure-white">
                     185+
                   </span>
                   <span className="block text-[8px] uppercase tracking-[0.2em] text-cloud/90 font-bold mt-1">
                     Secure officer stories shared
-                  </span>
-                </div>
-              </div>
-
-              {/* Mobile Statistics Grid */}
-              <div className="grid grid-cols-3 gap-4 w-full md:hidden">
-                <div className="text-center">
-                  <span className="block font-display text-lg font-bold text-pure-white">
-                    50k+
-                  </span>
-                  <span className="block text-[8px] uppercase tracking-wider text-cloud/80 mt-1">
-                    Supporters
-                  </span>
-                </div>
-                <div className="text-center border-x border-white/10">
-                  <span className="block font-display text-lg font-bold text-pure-white">
-                    4.2k
-                  </span>
-                  <span className="block text-[8px] uppercase tracking-wider text-cloud/80 mt-1">
-                    Candles Lit
-                  </span>
-                </div>
-                <div className="text-center">
-                  <span className="block font-display text-lg font-bold text-pure-white">
-                    185+
-                  </span>
-                  <span className="block text-[8px] uppercase tracking-wider text-cloud/80 mt-1">
-                    Stories
                   </span>
                 </div>
               </div>

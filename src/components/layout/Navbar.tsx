@@ -56,7 +56,7 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`relative px-3 py-2 text-[14px] font-medium tracking-wide whitespace-nowrap transition-colors duration-300 rounded-lg ${
+                  className={`relative px-2.5 py-2 text-[13px] font-medium tracking-wide whitespace-nowrap transition-colors duration-300 rounded-lg ${
                     isActive
                       ? "text-pure-white"
                       : "text-slate-light hover:text-pure-white hover:bg-white/5"
@@ -69,6 +69,14 @@ export default function Navbar() {
                 </Link>
               );
             })}
+
+            {/* Donate Button */}
+            <Link
+              href="/donate"
+              className="ml-4 px-4 py-2 text-[13px] font-bold tracking-widest text-pure-white bg-gradient-to-r from-azure to-sky border border-azure/30 hover:from-sky hover:to-azure shadow-[0_4px_15px_rgba(37,99,235,0.2)] hover:scale-105 duration-300 rounded-lg uppercase whitespace-nowrap"
+            >
+              DONATE
+            </Link>
           </div>
 
           {/* Mobile Toggle */}
@@ -103,7 +111,7 @@ export default function Navbar() {
 
       {/* Mobile Menu Overlay */}
       <div
-        className={`fixed inset-0 z-40 lg:hidden transition-all duration-500 ${
+        className={`fixed inset-0 z-40 xl:hidden transition-all duration-500 ${
           mobileOpen ? "visible opacity-100" : "invisible opacity-0"
         }`}
       >
@@ -116,17 +124,28 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`block text-3xl font-display font-semibold py-3 transition-all duration-500 ${
+                  className={`block text-2xl font-display font-semibold py-2 transition-all duration-500 ${
                     mobileOpen
                       ? "translate-x-0 opacity-100"
                       : "-translate-x-8 opacity-0"
                   } ${isActive ? "text-azure" : "text-silver hover:text-pure-white"}`}
-                  style={{ transitionDelay: mobileOpen ? `${i * 60}ms` : "0ms" }}
+                  style={{ transitionDelay: mobileOpen ? `${i * 50}ms` : "0ms" }}
                 >
                   {link.label}
                 </Link>
               );
             })}
+
+            {/* Mobile Donate Button */}
+            <Link
+              href="/donate"
+              className={`block text-center text-xl font-bold py-3 mt-6 text-pure-white bg-gradient-to-r from-azure to-sky rounded-xl shadow-lg uppercase transition-all duration-500 ${
+                mobileOpen ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
+              }`}
+              style={{ transitionDelay: mobileOpen ? `${navLinks.length * 50}ms` : "0ms" }}
+            >
+              DONATE
+            </Link>
           </div>
         </div>
       </div>

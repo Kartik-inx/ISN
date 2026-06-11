@@ -1,6 +1,7 @@
 import Hero from "@/components/sections/Hero";
 import ImpactStats from "@/components/sections/ImpactStats";
 import ObjectivesGrid from "@/components/sections/ObjectivesGrid";
+import FoundersGrid from "@/components/sections/FoundersGrid";
 import IssuePreview from "@/components/sections/IssuePreview";
 import StoriesPreview from "@/components/sections/StoriesPreview";
 import VoicesPreview from "@/components/sections/VoicesPreview";
@@ -14,12 +15,13 @@ export default function HomePage() {
       <Hero />
       <ImpactStats />
       <ObjectivesGrid />
+      <FoundersGrid />
       <IssuePreview />
       <StoriesPreview />
       <VoicesPreview />
       <EventsPreview />
-      <PocketSergeantBanner />
       <CTABanner />
+      <PocketSergeantBanner />
     </>
   );
 }

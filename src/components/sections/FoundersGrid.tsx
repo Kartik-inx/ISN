@@ -1,105 +1,310 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
+import Link from "next/link";
 import ScrollReveal from "@/components/animations/ScrollReveal";
+import SectionHeader from "@/components/ui/SectionHeader";
 
-const founders = [
+interface MemberData {
+  id: string;
+  name: string;
+  title: string;
+  subLabel?: string;
+  quote: string;
+  bio: string;
+}
+
+const mainFounder: MemberData = {
+  id: "paul-cooper",
+  name: "PAUL COOPER",
+  title: "Founder",
+  subLabel: "Creator of Pocket Sergeant",
+  quote: "Behind every statistic is a person, a family and a story that should never have had to end this way.",
+  bio: "Paul Cooper is a former police officer and the founder of Pocket Sergeant. What began as an idea to help officers access tools and information they need, has grown into the UK's leading police app and a trusted wellbeing resource used by tens of thousands of officers. Now fighting for those who protect the public."
+};
+
+const foundingMembers: MemberData[] = [
   {
-    name: "James Thornton",
-    title: "Co-Founder & Campaign Director",
-    initials: "JT",
-    bio: "A retired police inspector with 28 years of frontline service. James experienced firsthand the devastating impact of inadequate mental health support after multiple critical incidents. His personal journey through PTSD and recovery became the catalyst for It Stops Now. He now dedicates his time to ensuring no officer faces these battles alone.",
-    service: "28 years of service",
-    force: "Metropolitan Police Service",
+    id: "emma-williams",
+    name: "EMMA WILLIAMS",
+    title: "Family Member",
+    quote: "Because no officer should suffer in silence.",
+    bio: "Emma is a dedicated family advocate supporting police spouses and children. After experiencing the lack of support firsthand, she joined the movement to ensure no family has to suffer in silence."
   },
   {
-    name: "Sarah Mitchell",
-    title: "Co-Founder & Head of Advocacy",
-    initials: "SM",
-    bio: "Sarah's career as a detective sergeant spanning 22 years brought her face to face with the system's failures — not just for victims of crime, but for the officers investigating them. After losing a close colleague to suicide, she committed to building a campaign that would demand accountability and drive policy change at every level.",
-    service: "22 years of service",
-    force: "West Midlands Police",
+    id: "david-ross",
+    name: "DAVID ROSS",
+    title: "Former Officer",
+    quote: "Because the system failed too many of us.",
+    bio: "David served as a frontline officer for 15 years. Having witnessed system breakdowns, he campaigns for transparent procedures and structural reform that prioritizes the officer's humanity."
   },
   {
-    name: "Dr. Rachel Edwards",
-    title: "Co-Founder & Research Lead",
-    initials: "RE",
-    bio: "A clinical psychologist specialising in police trauma and PTSD, Rachel brings the evidence base that underpins every campaign demand. Her research into the long-term psychological impact of policing has been cited in parliamentary debates and has helped shift the national conversation around officer welfare.",
-    service: "Clinical Psychology Lead",
-    force: "Independent Researcher",
+    id: "lisa-thompson",
+    name: "LISA THOMPSON",
+    title: "Welfare Advocate",
+    quote: "Because officers' wellbeing must match their performance.",
+    bio: "Lisa has spent over a decade in officer welfare and occupational health. She advocates for institutionalizing wellbeing metrics that carry the same weight as performance KPIs."
   },
   {
-    name: "Mark Patterson",
-    title: "Co-Founder & Community Liaison",
-    initials: "MP",
-    bio: "Mark served as a police constable for 18 years before being medically retired due to complex PTSD. His experience of post-service abandonment — losing access to support the moment he left the force — drives the campaign's focus on lifetime aftercare for officers. He now works tirelessly to build bridges between serving officers, retirees, and communities.",
-    service: "18 years of service",
-    force: "Greater Manchester Police",
-  },
+    id: "mark-salton",
+    name: "MARK SALTON",
+    title: "Former Officer",
+    quote: "Because officers deserve better than we got.",
+    bio: "Mark is a retired inspector who fought through the ranks while coping with the invisible wounds of the job. He works to ensure future officers receive the institutional support they deserve."
+  }
 ];
 
 export default function FoundersGrid() {
+  const [flippedId, setFlippedId] = useState<string | null>(null);
+
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-      {founders.map((founder, i) => (
-        <ScrollReveal key={founder.name} delay={i * 0.1}>
-          <FlipCard founder={founder} />
+    <section className="relative py-28 bg-midnight overflow-hidden">
+      {/* Background radial effects */}
+      <div className="absolute top-1/2 left-0 w-[500px] h-[500px] -translate-y-1/2 bg-azure/5 rounded-full blur-[150px]" />
+      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-royal/3 rounded-full blur-[120px]" />
+
+      <div className="relative max-w-7xl mx-auto px-6 z-10">
+        <ScrollReveal>
+          <SectionHeader
+            eyebrow="Our Leadership"
+            title="Founded by People Who Lived It"
+            description="Our movement is led by former police officers, welfare advocates, and family members who have lived through the system and are fighting for real change."
+          />
         </ScrollReveal>
-      ))}
-    </div>
-  );
-}
 
-function FlipCard({ founder }: { founder: typeof founders[0] }) {
-  const [flipped, setFlipped] = useState(false);
-
-  return (
-    <div
-      className="flip-card cursor-pointer h-[380px] sm:h-[420px]"
-      onClick={() => setFlipped(!flipped)}
-    >
-      <div className={`flip-card-inner ${flipped ? "flipped" : ""}`}
-        style={{ transform: flipped ? "rotateY(180deg)" : "rotateY(0deg)" }}
-      >
-        {/* Front */}
-        <div className="flip-card-front rounded-2xl bg-gradient-to-br from-navy-light to-navy border border-white/5 p-10 flex flex-col items-center justify-center text-center">
-          <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-azure/20 to-sky/10 flex items-center justify-center mb-6 border border-azure/20">
-            <span className="text-3xl font-display font-bold text-azure">
-              {founder.initials}
-            </span>
+        {/* Flip Cards Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch mb-20">
+          {/* Left: Large Founder Card */}
+          <div className="lg:col-span-5 flex">
+            <ScrollReveal variant="left" className="w-full flex">
+              <FlipCard
+                member={mainFounder}
+                isLarge={true}
+                flippedId={flippedId}
+                setFlippedId={setFlippedId}
+              />
+            </ScrollReveal>
           </div>
 
-          <h3 className="text-2xl font-display font-bold text-pure-white mb-2">
-            {founder.name}
-          </h3>
-          <p className="text-sm text-azure font-medium mb-2">{founder.title}</p>
-          <p className="text-xs text-slate-light">{founder.force}</p>
-          <p className="text-xs text-slate">{founder.service}</p>
-
-          <div className="mt-6 flex items-center gap-2 text-xs text-slate">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-              <path d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5" />
-            </svg>
-            Click to read bio
+          {/* Right: 4 Smaller Founding Member Cards */}
+          <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {foundingMembers.map((member, i) => (
+              <ScrollReveal key={member.id} delay={i * 0.08} className="flex">
+                <FlipCard
+                  member={member}
+                  isLarge={false}
+                  flippedId={flippedId}
+                  setFlippedId={setFlippedId}
+                />
+              </ScrollReveal>
+            ))}
           </div>
         </div>
 
-        {/* Back */}
-        <div className="flip-card-back rounded-2xl glass-strong p-10 flex flex-col justify-center overflow-y-auto">
-          <h3 className="text-xl font-display font-bold text-pure-white mb-2">
-            {founder.name}
-          </h3>
-          <p className="text-sm text-azure font-medium mb-5">{founder.title}</p>
-          <p className="text-sm text-slate-light leading-relaxed">
-            {founder.bio}
-          </p>
+        {/* Bottom 3 Content Blocks */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-12 border-t border-white/5">
+          <ScrollReveal delay={0.1}>
+            <Link
+              href="/stories"
+              className="group flex flex-col justify-between p-8 rounded-2xl bg-navy/40 border border-white/5 hover:border-azure/30 transition-all duration-300 h-full card-lift"
+            >
+              <div>
+                <span className="block text-2xs font-extrabold uppercase tracking-[0.25em] text-azure mb-3">
+                  Read Experiences
+                </span>
+                <h4 className="text-xl font-display font-black uppercase text-pure-white group-hover:text-azure tracking-wider leading-snug transition-colors">
+                  REAL STORIES. REAL PEOPLE.
+                </h4>
+                <p className="text-sm text-slate-light mt-3 leading-relaxed">
+                  Hear directly from officers who have faced the reality of serving and the struggles of seeking support.
+                </p>
+              </div>
+              <span className="text-xs font-bold text-azure group-hover:text-sky tracking-widest uppercase mt-6 flex items-center gap-1.5 transition-colors">
+                READ ALL STORIES <span className="transition-transform group-hover:translate-x-1">→</span>
+              </span>
+            </Link>
+          </ScrollReveal>
 
-          <div className="mt-6 flex items-center gap-2 text-xs text-slate">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-              <path d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5" />
-            </svg>
-            Click to flip back
+          <ScrollReveal delay={0.2}>
+            <Link
+              href="/stories"
+              className="group flex flex-col justify-between p-8 rounded-2xl bg-navy/40 border border-white/5 hover:border-azure/30 transition-all duration-300 h-full card-lift"
+            >
+              <div>
+                <span className="block text-2xs font-extrabold uppercase tracking-[0.25em] text-azure mb-3">
+                  Families First
+                </span>
+                <h4 className="text-xl font-display font-black uppercase text-pure-white group-hover:text-azure tracking-wider leading-snug transition-colors">
+                  FAMILIES LEFT BEHIND
+                </h4>
+                <p className="text-sm text-slate-light mt-3 leading-relaxed">
+                  Support and resources dedicated to the loved ones left behind by fallen colleagues.
+                </p>
+              </div>
+              <span className="text-xs font-bold text-azure group-hover:text-sky tracking-widest uppercase mt-6 flex items-center gap-1.5 transition-colors">
+                SEE STORIES <span className="transition-transform group-hover:translate-x-1">→</span>
+              </span>
+            </Link>
+          </ScrollReveal>
+
+          <ScrollReveal delay={0.3}>
+            <Link
+              href="/voices"
+              className="group flex flex-col justify-between p-8 rounded-2xl bg-navy/40 border border-white/5 hover:border-azure/30 transition-all duration-300 h-full card-lift"
+            >
+              <div>
+                <span className="block text-2xs font-extrabold uppercase tracking-[0.25em] text-azure mb-3">
+                  Speak Out
+                </span>
+                <h4 className="text-xl font-display font-black uppercase text-pure-white group-hover:text-azure tracking-wider leading-snug transition-colors">
+                  VOICES FOR CHANGE
+                </h4>
+                <p className="text-sm text-slate-light mt-3 leading-relaxed">
+                  Join our advocates, retired personnel, and public figures lending their support to demand reform.
+                </p>
+              </div>
+              <span className="text-xs font-bold text-azure group-hover:text-sky tracking-widest uppercase mt-6 flex items-center gap-1.5 transition-colors">
+                VISIT VOICES <span className="transition-transform group-hover:translate-x-1">→</span>
+              </span>
+            </Link>
+          </ScrollReveal>
+        </div>
+      </div>
+
+      {/* ─── FLIP ANIMATION CSS UTILITIES ─── */}
+      <style jsx global>{`
+        .flip-container {
+          perspective: 1000px;
+        }
+        .flip-inner {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          transform-style: preserve-3d;
+          transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .flip-inner.is-flipped {
+          transform: rotateY(180deg);
+        }
+        .flip-front, .flip-back {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          backface-visibility: hidden;
+          -webkit-backface-visibility: hidden;
+          border-radius: 1rem;
+        }
+        .flip-back {
+          transform: rotateY(180deg);
+        }
+      `}</style>
+    </section>
+  );
+}
+
+function FlipCard({
+  member,
+  isLarge = false,
+  flippedId,
+  setFlippedId
+}: {
+  member: MemberData;
+  isLarge?: boolean;
+  flippedId: string | null;
+  setFlippedId: (id: string | null) => void;
+}) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const isFlipped = flippedId === member.id;
+
+  // Handle click outside to flip back
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (cardRef.current && !cardRef.current.contains(event.target as Node)) {
+        if (isFlipped) {
+          setFlippedId(null);
+        }
+      }
+    }
+    // Handle tap outside on mobile
+    function handleTouchOutside(event: TouchEvent) {
+      if (cardRef.current && !cardRef.current.contains(event.target as Node)) {
+        if (isFlipped) {
+          setFlippedId(null);
+        }
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("touchstart", handleTouchOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("touchstart", handleTouchOutside);
+    };
+  }, [isFlipped, setFlippedId]);
+
+  return (
+    <div
+      ref={cardRef}
+      onClick={(e) => {
+        e.stopPropagation();
+        setFlippedId(isFlipped ? null : member.id);
+      }}
+      className={`flip-container w-full select-none cursor-pointer ${
+        isLarge ? "min-h-[420px] lg:min-h-full" : "min-h-[220px]"
+      }`}
+    >
+      <div className={`flip-inner ${isFlipped ? "is-flipped" : ""}`}>
+        {/* FRONT FACE */}
+        <div className="flip-front bg-navy/60 border border-white/5 hover:border-azure/30 p-8 flex flex-col justify-between shadow-xl transition-all duration-300">
+          <div>
+            <div className="flex justify-between items-start">
+              <div>
+                <h3 className={`font-display font-black uppercase text-pure-white tracking-wider ${
+                  isLarge ? "text-2xl" : "text-lg"
+                }`}>
+                  {member.name}
+                </h3>
+                <p className="text-[10px] font-bold uppercase tracking-widest text-azure mt-1 leading-none">
+                  {member.title}
+                  {member.subLabel && (
+                    <span className="text-slate-light/60 font-normal ml-2">
+                      | {member.subLabel}
+                    </span>
+                  )}
+                </p>
+              </div>
+            </div>
+            
+            <p className={`text-slate-light italic font-serif leading-relaxed mt-6 ${
+              isLarge ? "text-base sm:text-lg" : "text-xs sm:text-sm"
+            }`}>
+              "{member.quote}"
+            </p>
           </div>
+
+          <span className="text-[10px] font-bold uppercase tracking-widest text-azure hover:text-sky mt-6 inline-flex items-center gap-1.5 transition-colors">
+            {isLarge ? "READ BIO" : "VIEW BIO"} <span>→</span>
+          </span>
+        </div>
+
+        {/* BACK FACE */}
+        <div className="flip-back bg-midnight border border-azure/30 p-8 flex flex-col justify-between shadow-xl">
+          <div>
+            <h3 className="font-display font-bold uppercase text-azure tracking-wider text-base sm:text-lg">
+              ABOUT {member.name.split(" ")[0]}
+            </h3>
+            <p className="text-[10px] font-bold uppercase tracking-widest text-slate-light/60 mt-1">
+              {member.title}
+            </p>
+            <p className="text-xs sm:text-sm text-cloud leading-relaxed mt-4">
+              {member.bio}
+            </p>
+          </div>
+
+          <span className="text-[10px] font-bold uppercase tracking-widest text-slate hover:text-pure-white mt-6 inline-flex items-center gap-1.5 transition-colors">
+            <span>←</span> BACK
+          </span>
         </div>
       </div>
     </div>

@@ -2,109 +2,130 @@
 
 import ScrollReveal from "@/components/animations/ScrollReveal";
 import SectionHeader from "@/components/ui/SectionHeader";
-import { objectives } from "@/lib/constants";
+import Link from "next/link";
 
-const iconMap: Record<string, React.ReactNode> = {
-  megaphone: (
-    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9" />
-      <path d="M13.73 21a2 2 0 01-3.46 0" />
-    </svg>
-  ),
-  scale: (
-    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M12 3v18M1 12h22M4.2 6.8L12 3l7.8 3.8M4.2 17.2L12 21l7.8-3.8" />
-    </svg>
-  ),
-  heart: (
-    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" />
-    </svg>
-  ),
-  candle: (
-    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="9" y="10" width="6" height="11" rx="1" />
-      <path d="M12 10V7" />
-      <path d="M12 7c-1.5-2-1-4 0-5 1 1 1.5 3 0 5z" fill="currentColor" opacity="0.3" />
-    </svg>
-  ),
-  community: (
-    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="12" cy="5" r="3" />
-      <circle cx="5" cy="19" r="3" />
-      <circle cx="19" cy="19" r="3" />
-      <path d="M12 8v4M8.5 16.5L12 12l3.5 4.5" />
-    </svg>
-  ),
-  chart: (
-    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M18 20V10M12 20V4M6 20v-6" />
-    </svg>
-  ),
-};
+const row1Objectives = [
+  {
+    num: "01",
+    title: "IMPROVE WELLBEING & MENTAL HEALTH",
+    description: "Ensure every officer and staff member has access to timely, effective and ongoing mental health support."
+  },
+  {
+    num: "02",
+    title: "PREVENT SUICIDE & SAVE LIVES",
+    description: "Reduce the number of police officer suicides through early intervention, support and cultural change."
+  },
+  {
+    num: "03",
+    title: "DRIVE ACCOUNTABILITY & TRANSPARENCY",
+    description: "Ensure misconduct is investigated fairly, transparently and without bias or delay."
+  },
+  {
+    num: "04",
+    title: "SUPPORT FAMILIES & LOVED ONES",
+    description: "Provide better support, information and care for the families and loved ones of officers."
+  }
+];
 
-// Layout: bento grid with varying sizes
-const gridPositions = [
-  "sm:col-span-2 sm:row-span-1",     // Wide card
-  "sm:col-span-1 sm:row-span-1",     // Normal
-  "sm:col-span-1 sm:row-span-1",     // Normal
-  "sm:col-span-1 sm:row-span-1",     // Normal
-  "sm:col-span-1 sm:row-span-1",     // Normal
-  "sm:col-span-2 sm:row-span-1",     // Wide card
+const row2Objectives = [
+  {
+    num: "05",
+    title: "REFORM SYSTEMS & PROCESSES",
+    description: "Identify failures in policies, processes and structures – and drive the reforms needed to fix them."
+  },
+  {
+    num: "06",
+    title: "EDUCATE & CHANGE POLICING CULTURE",
+    description: "Promote a culture of openness, respect and support where speaking up is safe and encouraged."
+  },
+  {
+    num: "07",
+    title: "INFLUENCE POLICY & LEGISLATION",
+    description: "Work with policymakers and decision makers to create laws and policies that protect those who protect us."
+  }
 ];
 
 export default function ObjectivesGrid() {
   return (
     <section className="relative py-28 bg-obsidian">
-      {/* Subtle pattern */}
-      <div className="absolute inset-0 opacity-[0.02]" style={{
+      {/* Subtle background grid pattern */}
+      <div className="absolute inset-0 opacity-[0.02] pointer-events-none" style={{
         backgroundImage: "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.3) 1px, transparent 0)",
         backgroundSize: "40px 40px",
       }} />
 
-      <div className="relative max-w-7xl mx-auto px-6">
+      <div className="relative max-w-7xl mx-auto px-6 z-10">
         <ScrollReveal>
           <SectionHeader
-            eyebrow="Our Mission"
-            title="What We Stand For"
-            description="Six pillars driving our commitment to the police family — from raising awareness to creating lasting change."
+            eyebrow="Campaign Priorities"
+            title="Campaign Objectives"
+            description="Seven core campaign objectives to deliver mental health support, prevent suicide, drive system reforms, and protect those who protect the public."
           />
         </ScrollReveal>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {objectives.map((obj, i) => (
-            <ScrollReveal
-              key={obj.title}
-              delay={i * 0.08}
-              className={i === 0 ? "lg:col-span-2" : i === 5 ? "lg:col-span-2" : ""}
-            >
-              <div className={`group relative h-full p-8 rounded-2xl bg-navy/50 border border-white/5 card-lift overflow-hidden ${
-                i === 0 || i === 5 ? "lg:flex lg:items-center lg:gap-8" : ""
-              }`}>
-                {/* Icon */}
-                <div className={`flex-shrink-0 w-14 h-14 rounded-xl bg-azure/10 flex items-center justify-center text-azure mb-5 transition-all duration-500 group-hover:bg-azure/20 group-hover:scale-110 ${
-                  i === 0 || i === 5 ? "lg:mb-0 lg:w-16 lg:h-16" : ""
-                }`}>
-                  {iconMap[obj.icon]}
-                </div>
-
-                <div>
-                  <h3 className={`text-xl font-display font-semibold text-pure-white mb-3 ${
-                    i === 0 || i === 5 ? "lg:text-2xl" : ""
-                  }`}>
+        {/* 4+3 Grid Layout */}
+        <div className="space-y-6">
+          {/* Row 1: 4 columns */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {row1Objectives.map((obj, i) => (
+              <ScrollReveal key={obj.num} delay={i * 0.08}>
+                <div className="group relative h-full p-8 rounded-2xl bg-navy/50 border border-white/5 hover:border-azure/30 card-lift transition-all duration-300">
+                  <div className="text-3xl font-display font-black text-azure/30 group-hover:text-azure/60 transition-colors duration-300 mb-4">
+                    {obj.num}
+                  </div>
+                  <h3 className="text-lg font-display font-bold text-pure-white mb-3 tracking-wide uppercase leading-snug">
                     {obj.title}
                   </h3>
                   <p className="text-sm text-slate-light leading-relaxed">
                     {obj.description}
                   </p>
                 </div>
+              </ScrollReveal>
+            ))}
+          </div>
 
-                {/* Corner accent */}
-                <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-azure/5 to-transparent rounded-bl-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              </div>
-            </ScrollReveal>
-          ))}
+          {/* Row 2: 3 columns, centered on large screens */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            {row2Objectives.map((obj, i) => (
+              <ScrollReveal key={obj.num} delay={(i + 4) * 0.08}>
+                <div className="group relative h-full p-8 rounded-2xl bg-navy/50 border border-white/5 hover:border-azure/30 card-lift transition-all duration-300">
+                  <div className="text-3xl font-display font-black text-azure/30 group-hover:text-azure/60 transition-colors duration-300 mb-4">
+                    {obj.num}
+                  </div>
+                  <h3 className="text-lg font-display font-bold text-pure-white mb-3 tracking-wide uppercase leading-snug">
+                    {obj.title}
+                  </h3>
+                  <p className="text-sm text-slate-light leading-relaxed">
+                    {obj.description}
+                  </p>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
         </div>
+
+        {/* Campaign callout footer */}
+        <ScrollReveal delay={0.6}>
+          <div className="mt-20 pt-10 border-t border-white/5 text-center max-w-3xl mx-auto">
+            <span className="inline-block text-xs sm:text-sm font-bold tracking-[0.25em] uppercase text-azure mb-6">
+              ONE MOVEMENT. ONE MISSION. We will not stop until real change happens. It Stops Now.
+            </span>
+            
+            <blockquote className="text-xl sm:text-2xl font-serif italic text-pure-white leading-relaxed mb-4">
+              "Change will not come if we wait for some other person or some other time. We are the ones we've been waiting for."
+            </blockquote>
+            <cite className="block text-xs uppercase tracking-widest text-slate mb-10 not-italic">
+              — Barack Obama
+            </cite>
+
+            <Link
+              href="/the-issue"
+              className="btn-outline text-xs tracking-widest font-bold uppercase py-4 px-8 rounded-xl hover:bg-white/5 transition-all"
+            >
+              VIEW ALL OBJECTIVES
+            </Link>
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   );

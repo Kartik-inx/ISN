@@ -1,27 +1,53 @@
 import Link from "next/link";
-import { siteConfig } from "@/lib/constants";
 
 export default function PocketSergeantBanner() {
   return (
-    <section className="border-t border-b border-white/5 bg-navy-light/30">
-      <div className="max-w-7xl mx-auto px-6 py-8 flex flex-col md:flex-row items-center justify-between gap-6">
-        <div className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-xl bg-azure/20 flex items-center justify-center">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-azure">
-              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="currentColor"/>
-            </svg>
+    <section className="border-t border-white/5 bg-navy-light/30 relative py-12 overflow-hidden">
+      <div className="absolute inset-0 opacity-[0.02] pointer-events-none" style={{
+        backgroundImage: "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.3) 1px, transparent 0)",
+        backgroundSize: "32px 32px",
+      }} />
+      <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-8 relative z-10">
+        <div className="flex flex-col md:flex-row items-center md:items-start gap-6 text-center md:text-left">
+          {/* Logo / Badge */}
+          <div className="flex items-center gap-3">
+            <div className="w-14 h-14 rounded-2xl bg-azure/10 border border-azure/20 flex items-center justify-center shrink-0">
+              {/* Custom Pocket Sergeant SVG Logo */}
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-azure">
+                {/* Shield background */}
+                <path d="M12 2L4 5V11C4 16.52 7.42 20.35 12 22C16.58 20.35 20 16.52 20 11V5L12 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                {/* Chevrons (Sergeant) */}
+                <path d="M8 8L12 11L16 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M8 11L12 14L16 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </div>
+            <div className="text-left">
+              <span className="text-[10px] tracking-[0.25em] font-extrabold uppercase text-azure block mb-1">
+                SPONSOR PARTNERSHIP
+              </span>
+              <span className="font-display font-black tracking-wider text-pure-white text-lg sm:text-xl block">
+                POCKET SERGEANT
+              </span>
+            </div>
           </div>
-          <div>
-            <h3 className="text-lg font-display font-semibold text-pure-white mb-1">
-              Proudly supported by {siteConfig.supporterName}
-            </h3>
-            <p className="text-sm text-slate-light">
-              The essential app for today's police officer.
+
+          <div className="max-w-xl">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-azure mb-1 select-none">
+              IT STOPS NOW IS PROUDLY FUNDED AND SUPPORTED BY POCKET SERGEANT
+            </h4>
+            <p className="text-sm text-slate-light leading-relaxed">
+              Pocket Sergeant Ltd is committed to supporting police officer welfare, wellbeing and meaningful reform.
             </p>
           </div>
         </div>
-        <Link href="/pocket-sergeant" className="btn-secondary whitespace-nowrap">
-          <span>Learn more about our supporter</span>
+
+        <Link 
+          href="/pocket-sergeant" 
+          className="btn-outline text-xs tracking-widest font-bold uppercase py-3.5 px-6 whitespace-nowrap group shrink-0"
+        >
+          <span className="flex items-center gap-2">
+            Learn more about our supporter <span className="transition-transform group-hover:translate-x-1">→</span>
+          </span>
         </Link>
       </div>
     </section>
