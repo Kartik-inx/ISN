@@ -5,15 +5,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 
-const navLinks = [
-  { label: "Home", href: "/" },
-  { label: "The Issue", href: "/the-issue" },
-  { label: "News", href: "/news" },
-  { label: "Stories", href: "/stories" },
-  { label: "Wall of Remembrance", href: "/remembrance" },
-  { label: "Research and Evidence", href: "/research" },
-  { label: "Recover and Support", href: "/recovery" },
-] as const;
+import { navLinks as allNavLinks } from "@/lib/constants";
+
+const navLinks = allNavLinks.filter((link) => link.href !== "/take-action");
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -64,14 +58,14 @@ export default function Navbar() {
           </div>
 
           {/* CENTRE NAVIGATION LINKS */}
-          <div className="hidden xl:flex items-center justify-center flex-1 gap-10">
+          <div className="hidden xl:flex items-center justify-center flex-1 gap-5 2xl:gap-8">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
               return (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`relative py-1 text-[15px] font-normal tracking-wide whitespace-nowrap transition-colors duration-300 ${
+                  className={`relative py-1 text-[13px] 2xl:text-[15px] font-normal tracking-wide whitespace-nowrap transition-colors duration-300 ${
                     isActive ? "text-white" : "text-white/70 hover:text-white"
                   }`}
                 >
@@ -132,15 +126,15 @@ export default function Navbar() {
       >
         <div className="absolute inset-0 bg-[#0a0f1e]" />
 
-        <div className="relative h-full flex flex-col justify-center px-8">
-          <div className="space-y-5 max-w-xs mx-auto w-full text-center">
+        <div className="relative h-full flex flex-col justify-center px-8 overflow-y-auto pt-16 pb-8">
+          <div className="space-y-3 max-w-xs mx-auto w-full text-center">
             {navLinks.map((link, i) => {
               const isActive = pathname === link.href;
               return (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`block text-xl font-medium py-2 transition-all duration-500 ${
+                  className={`block text-lg font-medium py-1.5 transition-all duration-500 ${
                     mobileOpen
                       ? "translate-y-0 opacity-100"
                       : "translate-y-4 opacity-0"
